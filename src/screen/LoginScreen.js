@@ -48,8 +48,8 @@ const LoginScreen = () => {
           <div className="flex flex-col gap-5">
             <Input
               placeholder="Type in your email"
-              type="Email"
-              label="Name"
+              type="text"
+              label="Email"
               value={email}
               setValue={setEmail}
             />
