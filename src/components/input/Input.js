@@ -18,7 +18,7 @@ const Input = ({
 
 
   return (
-    <div className='border px-2 w-[20rem] bg-gray-100 py-1'>
+    <div className=' px-2 w-[20rem] bg-gray-200 py-1'>
       <p className='text-slate-500 text-[13px]'>{label}</p>
       <div className='flex flex-row items-center gap-1'>
         <input placeholder={placeholder} value={value} type={type === 'password' && visible === false ? 'password' : 'text'} onChange={handleInputChange} className='bg-inherit py-1 fill-none text-[16px] text-black w-[100%] outline-none'/>

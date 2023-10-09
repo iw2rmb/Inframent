@@ -5,13 +5,14 @@ const Button = ({
   title,
   handleClick,
   btnType,
-  color
+  color,
+  isActive
 }) => {
   return (
     <button
-      disabled={false}
       onClick={handleClick}
-      className={`border px-16 py-3 rounded-full hover:bg-white hover:border ${color}`}
+      className={`px-16 py-3 rounded-full ${!isActive ? 'bg-blue-500 text-white' : 'bg-white text-black'}`}
+      disabled={isActive}
     >
         
         <p className=''>{title}</p>
