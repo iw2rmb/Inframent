@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.slide-out-in {
+    width: 100px;
+    transition: width 150ms ease-in-out;
+  }
+  
+  .slide-in {
+    width: 180px;
+    transition: width 150ms ease-out;
+  }
+
+  .font-roboto {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .backdrop{
+    background-color: rgba(51, 50, 50, 0.1);
+  }
