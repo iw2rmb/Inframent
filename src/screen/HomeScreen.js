@@ -75,7 +75,6 @@ const HomeScreen = () => {
 
   const projects = useSelector((state) => state?.listProjects);
 
-  // parameter
   return <div className={`flex flex-row py-5 h-[100%] bg-gray-100 ${tab === 'dp-areas' ? 'justify-evenly' : 'gap-[5%] px-[2%]'}`}>
     
 

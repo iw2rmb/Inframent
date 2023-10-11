@@ -208,5 +208,3 @@ try {
   console.log(error)
 }
   }
-
-  
