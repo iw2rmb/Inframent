@@ -1,15 +1,10 @@
 
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { fetchProjects, fetchSubProjects } from "../action/projects";
+import React, { useState } from "react";
 import Projects from "../components/projects";
 import SubProject from "../components/SubProject";
 import DpArea from "../components/DpArea";
-import ProjectCard from "../components/ProjectCard";
-import { fetchDpAreas } from "../action/projects";
 import { useNavigate } from "react-router-dom";
 const HomeScreen = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [tab, setTab] = useState('projects');
@@ -71,15 +66,11 @@ const HomeScreen = () => {
   } 
   
 
- 
-
-  const projects = useSelector((state) => state?.listProjects);
-
   return <div className={`flex flex-row py-5 h-[100%] bg-gray-100 ${tab === 'dp-areas' ? 'justify-evenly' : 'gap-[5%] px-[2%]'}`}>
     
 
     {
-      tab != '' && 
+      tab !== '' && 
       <Projects setSelectedProject={handleProjectChange}/> 
      
     }

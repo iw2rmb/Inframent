@@ -13,7 +13,10 @@ import {
   FETCH_DP_AREAS_FAILED,
   FETCH_DP_PICTURE,
   FETCH_DP_PICTURE_SUCCESSFUL,
-  FETCH_DP_PICTURE_FAILED
+  FETCH_DP_PICTURE_FAILED,
+  FETCH_ALL_DP_PICTURES,
+  FETCH_ALL_DP_PICTURES_SUCCESSFUL,
+  FETCH_ALL_DP_PICTURES_FAILED
 } from "../constant/products";
 
 export const fetchProjectsReducer = (
@@ -30,7 +33,7 @@ export const fetchProjectsReducer = (
         loading: false,
         projects: action.payload,
       };
-    case FETCH_SUB_PROJECT_FAILED:
+    case FETCH_PROJECT_FAILED:
       return {
         loading: false,
       };
@@ -120,6 +123,27 @@ export const fetchDpPictures = (
         loading: false, picture: action.payload
       }
     case FETCH_DP_PICTURE_FAILED:
+      return {
+        loading: false
+      }
+    default: return state
+  }
+}
+
+
+export const fetchAllDpPictures = (
+  state = {loading: false, dpPictures: []}, action
+) => {
+  switch (action.type) {
+    case FETCH_ALL_DP_PICTURES:
+      return {
+        loading: true
+      };
+    case FETCH_ALL_DP_PICTURES_SUCCESSFUL:
+      return {
+        loading: false, dpPictures: action?.payload
+      }
+    case FETCH_ALL_DP_PICTURES_FAILED:
       return {
         loading: false
       }

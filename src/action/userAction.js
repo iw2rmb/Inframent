@@ -1,16 +1,15 @@
 import Axios from "axios";
 import { toast } from "react-toastify";
-
-// Importing the constants for the authentication
 import {
   REQUEST_LOGIN,
   REQUEST_LOGIN_SUCCESSFUL,
   REQUEST_LOGIN_FAILED,
 } from "../constant/userConstant";
 
-// This is the base url for the backend
-const BASE_URL = "http://127.0.0.1:8000";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 const customId = "custom-id-yes";
+
 
 //This is the action that calls the authentication api
 export const signin = (email, password) => async (dispatch) => {
@@ -19,7 +18,7 @@ export const signin = (email, password) => async (dispatch) => {
   });
 
   try {
-    const { data } = await Axios.post(`${BASE_URL}/api/auth/login`, {
+    const { data } = await Axios.post(`${BASE_URL}/auth/login`, {
       email: email,
       password: password,
     });

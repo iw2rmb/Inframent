@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {BiSolidRightArrow} from 'react-icons/bi';
 import {IoMdArrowDropright} from 'react-icons/io';
-import { UseSelector, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchSubProjects } from '../action/projects';
 import CircularProgress from '@mui/material/CircularProgress';
 const SubProject = ({setSelectedSubProject, selectedProject}) => {
@@ -14,7 +13,7 @@ const SubProject = ({setSelectedSubProject, selectedProject}) => {
 
   useEffect(() => {
       dispatch(fetchSubProjects(selectedProject))
-  }, [selectedProject])
+  }, [selectedProject, dispatch])
 
   const {loading, subProjects} = useSelector((state) => state?.listSubProjects)
 
