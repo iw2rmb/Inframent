@@ -20,7 +20,6 @@ const Sidebar = ({setToggleOpen}) => {
         updateParam();
     }, [params, updateParam]);
 
-    console.log(currParam)
     const navLinks = [
         {
             id: 1,

@@ -197,7 +197,6 @@ export const fetchAllDPPictures = () => async (dispatch) => {
       type: FETCH_ALL_DP_PICTURES_SUCCESSFUL,
       payload: data,
     });
-    console.log(data)
   } catch (error) {
     dispatch({
       type: FETCH_DP_PICTURE_FAILED,
