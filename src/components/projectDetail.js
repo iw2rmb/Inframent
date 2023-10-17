@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { MdOutlineContentCopy } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
-
+import {RiDeleteBin6Line} from 'react-icons/ri';
 import { useDispatch, useSelector } from "react-redux";
 const ProjectDetail = ({setShowDetails, id, object}) => {
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ const ProjectDetail = ({setShowDetails, id, object}) => {
 
       {
         loading === true ? <div>loading</div> : !data ? '' : 
-      <div className="bg-white rounded-xl w-[70vw] min-w-[50rem] h-[80vh] gap-12 flex flex-row py-8 px-12 font-roboto">
+      <div className="bg-white z-10 rounded-xl w-[70vw] min-w-[50rem] h-[80vh] gap-12 flex flex-row py-8 px-12 font-roboto">
         <div className="w-[55%] flex flex-col justify-between">
           <p className="text-2xl font-roboto">Picture details</p>
           <img
@@ -126,12 +126,21 @@ const ProjectDetail = ({setShowDetails, id, object}) => {
             <p className="text-[15px]">Google Pixel 6</p>
             
             </div>
-
+<div className="mt-4 cursor-pointer flex flex-row justify-end gap-3 font-semibold items-center text-red-500">
+              <RiDeleteBin6Line />
+              <p>Delete Pictures</p>
+            </div>
           </div>
+           
          
         </div>
+        
       </div>
 }
+
+<div className="absolute w-[100vw] h-[100vh] top-0 cursor-pointer" onClick={() => setShowDetails(false)}>
+
+</div>
     </div>
   );
 };
