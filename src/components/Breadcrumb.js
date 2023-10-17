@@ -1,5 +1,4 @@
 import React from 'react';
-import {SlArrowRight} from 'react-icons/sl';
 import {IoIosArrowForward} from 'react-icons/io'
 
 const Breadcrumb = (links) => {

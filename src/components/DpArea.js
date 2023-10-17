@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {BiSolidRightArrow} from 'react-icons/bi';
 import {IoMdArrowDropright} from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDP } from '../action/projects';

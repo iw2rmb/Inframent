@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
 import { fetchDpAreas, fetchDpPictures } from "../action/projects";
 import { useSelector, useDispatch } from "react-redux";
-import  {AiOutlineCopy} from 'react-icons/ai'
 import { CircularProgress } from "@mui/material";
 import {MdOutlineContentCopy} from 'react-icons/md'
 import ProjectDetail from "../components/projectDetail";
@@ -32,7 +31,7 @@ const DpAreas = () => {
 
   useEffect(() => {
     dispatch(fetchDpAreas(data.id));
-  }, [data]);
+  }, [data, dispatch]);
 
   const handleShowPicture = (id) => {
     setShowDetails(true)
@@ -54,6 +53,8 @@ const DpAreas = () => {
     return `${wholeNumber}.${decimalDigits}`;
   }
 
+  console.log(areas)
+
   return (
     <div className="flex flex-col gap-[4%] py-8 px-[20px] h-[100%]">
       <Breadcrumb links={links} />
@@ -67,7 +68,7 @@ const DpAreas = () => {
         {areas?.map((area) => (
           <div key={area.id} className="flex flex-col border rounded-xl font-roboto">
             <div className="flex flex-row bg-gray-200 p-[8px] rounded-xl gap-[5%]">
-              <img src={area?.dp_image} alt="construction image" className="w-40 h-40 rounded-lg"/>
+              <img src={area?.dp_image} alt={area?.dp_image} className="w-40 h-40 rounded-lg"/>
               <div className="flex flex-row flex-1 p-1 justify-between">
                 <div>
                   <h1 className="text-[16px] font-mono">12:23:34, 12/09/22</h1>
@@ -83,7 +84,11 @@ const DpAreas = () => {
             <div className="p-4">
               <p className="text-[16px] font-semibold">Location</p>
             <div className="flex flex-row justify-between mt-1.5">
-               <p className="text-[15px]"> <span>Lat: {getWholeAndDecimal(area?.latitude)}</span> <span>Lon:  {getWholeAndDecimal(area?.longitude)}</span></p>
+               {/* <p className="text-[15px]"> <span>Lat: {getWholeAndDecimal(area?.latitude)}</span> <span>Lon:  {getWholeAndDecimal(area?.longitude)}</span></p> */}
+               <h1 className="text-[15px]">
+  <span>Lat: {getWholeAndDecimal(area?.latitude || 0)}</span>
+  <span>Lon: {getWholeAndDecimal(area?.longitude || 0)}</span>
+</h1>
                <MdOutlineContentCopy className="text-blue-700 text-xl cursor-pointer"/>
             </div>
             <h1 className="text-[16px] font-semibold mt-3">Note</h1>

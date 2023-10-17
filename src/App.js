@@ -1,3 +1,4 @@
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -10,6 +11,7 @@ import HomeScreen from "./screen/HomeScreen";
 import LoginScreen from "./screen/LoginScreen";
 import Layout from "./layout";
 import DpAreas from "./screen/DpAreas";
+import MapScreen from "./screen/MapScreen";
 function App() {
   // Declaring the routes in the website
 
@@ -25,24 +27,17 @@ function App() {
      </Layout>
   )
 
-  
-  const data = sessionStorage.getItem("userInfo");
+  const Map = () => (
+    <Layout>
+      <MapScreen />
+    </Layout>
+  )
   const routes = [
     <Route path="/" element={<Home />} />,
     <Route  path="/login" element={<LoginScreen />} />,
     <Route  path="/dp-areas" element={<DpArea />} />,
+    <Route  path="/map" element={<Map />} />,
 
-  //   <Route
-  //   path='/'
-  //   element={
-  //     data ? (
-  //       <Home />
-  //     ) : (
-  //       <LoginScreen />
-  //       // <Route path="/login" element={<LoginScreen />} />
-  //     )
-  //   }
-  // />
   ];
 
   const router = createBrowserRouter(createRoutesFromElements(routes));

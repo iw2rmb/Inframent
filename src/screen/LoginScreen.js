@@ -5,7 +5,6 @@ import Button from "../components/button/Button";
 import { signin } from "../action/userAction";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import TextField from '@mui/material/TextField';
 const LoginScreen = () => {
 
   // Declaring the dispatch and the navigation
