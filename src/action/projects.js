@@ -26,7 +26,6 @@ import { toast } from "react-toastify";
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const customId = "custom-id-yes";
 
 export const fetchProjects = () => async (dispatch) => {
   dispatch({
@@ -205,7 +204,7 @@ export const fetchAllDPPictures = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: FETCH_DP_PICTURE_FAILED,
+      type: FETCH_ALL_DP_PICTURES_FAILED,
       payload:
         error.response && error.response.data[0]
           ? error.response.data.message
