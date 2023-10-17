@@ -18,9 +18,15 @@ import {
   FETCH_ALL_DP_PICTURES,
   FETCH_ALL_DP_PICTURES_SUCCESSFUL,
   FETCH_ALL_DP_PICTURES_FAILED,
+  DELETE_DP_AREA,
+  DELETE_DP_AREA_SUCCESSFUL,
+  DELETE_DP_AREA_FAILED
 } from "../constant/products";
+import { toast } from "react-toastify";
+
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+const customId = "custom-id-yes";
 
 export const fetchProjects = () => async (dispatch) => {
   dispatch({
@@ -205,5 +211,61 @@ export const fetchAllDPPictures = () => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
+  }
+};
+
+
+
+
+
+export const deleteDpArea = (id, categoryName, dpNote, depth) => async (dispatch) => {
+  dispatch({
+    type: DELETE_DP_AREA,
+  });
+
+  console.log(categoryName, dpNote, depth, id)
+
+  const data = sessionStorage.getItem("userInfo");
+  const authToken = JSON.parse(data)?.auth_token;
+
+  try {
+    const { data } = await Axios.patch(`${BASE_URL}/projects/dp-pictures/${id}/update`, {
+      "dp_category_name": categoryName,
+      "dp_note": dpNote,
+      "depth": depth,
+      "active": false
+    }, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    dispatch({
+      type: DELETE_DP_AREA_SUCCESSFUL,
+      payload: data,
+    });
+    console.log(data)
+
+    toast.success('Picture successfully deleted', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
+  } catch (error) {
+    dispatch({
+      type: DELETE_DP_AREA_FAILED,
+      payload:
+        error.response && error.response.data[0]
+          ? error.response.data.message
+          : error.message,
+    });
+    console.log(error)
   }
 };

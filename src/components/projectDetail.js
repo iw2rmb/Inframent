@@ -3,9 +3,11 @@ import { MdOutlineContentCopy } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import {RiDeleteBin6Line} from 'react-icons/ri';
 import { useDispatch, useSelector } from "react-redux";
+import { deleteDpArea } from "../action/projects";
 const ProjectDetail = ({setShowDetails, id, object}) => {
   const dispatch = useDispatch();
   const [data, setData] = useState(null)
+  const [showModal, setShowModal] = useState(false)
   const {loading, picture} = useSelector((state) => state?.dpPicture)
 
   useEffect(() => {
@@ -19,7 +21,7 @@ const ProjectDetail = ({setShowDetails, id, object}) => {
   }, [picture, object])
  
   
-
+  // data?.dp_area?.name
   useEffect(() => {
   }, [ dispatch, picture])
 
@@ -58,14 +60,22 @@ const ProjectDetail = ({setShowDetails, id, object}) => {
   };
   
 
- 
+ const handleDelete = () => {
+  console.log(data?.depth)
+  // console.log(data?.dp_note)
+  dispatch(deleteDpArea(id, data?.dp_area?.name, data?.dp_note, data?.depth))
+
+  // categoryName, dpNote, depth,
+ }
+
+
   return (
     <div className="fixed flex items-center justify-center z-10 backdrop top-0 left-0 w-[100%] h-[100%]">
 
       {
         loading === true ? <div>loading</div> : !data ? '' : 
-      <div className="bg-white z-10 rounded-xl w-[70vw] min-w-[50rem] h-[80vh] gap-12 flex flex-row py-8 px-12 font-roboto">
-        <div className="w-[55%] flex flex-col justify-between">
+      <div className="bg-white z-10 rounded-xl w-[70rem] h-[80vh] gap-12 flex flex-row py-8 px-12 font-roboto">
+        <div className="w-[65%] flex flex-col justify-between">
           <p className="text-2xl font-roboto">Picture details</p>
           <img
             src={data?.dp_image ? data?.dp_image : data?.thumbnail_image}
@@ -74,7 +84,7 @@ const ProjectDetail = ({setShowDetails, id, object}) => {
           />
         </div>
 
-        <div className="flex flex-col justify- h-[100%] w-[45%]">
+        <div className="flex flex-col justify- h-[100%] w-[40%] relative">
         <div className="mb-8 w-[100%] flex justify-end h-fit">
               <AiOutlineClose className="text-xl text-blue-600 cursor-pointer" onClick={() => setShowDetails(false)}/>
             </div>
@@ -126,10 +136,26 @@ const ProjectDetail = ({setShowDetails, id, object}) => {
             <p className="text-[15px]">Google Pixel 6</p>
             
             </div>
-<div className="mt-4 cursor-pointer flex flex-row justify-end gap-3 font-semibold items-center text-red-500">
+<div className="mt-4 cursor-pointer flex flex-row justify-end font-semibold  text-red-500">
+  <div className="flex flex-row items-center gap-3" onClick={() => setShowModal(true)}>
+
               <RiDeleteBin6Line />
               <p>Delete Pictures</p>
+              </div>
             </div>
+
+            {
+              showModal && <div className="w-[100%] h-[13rem] justify-evenly flex flex-col rounded-xl bg-neutral-200 absolute bottom-0 left-0 px-4">
+                <div>
+                <h1 className="font-roboto text-xl">Are you sure?</h1>
+                <p className="font-roboto mt-2 text-[15px] w-[80%]">When you delete a picture it's gone forever along with the information attached to it.</p>
+                </div>
+                <div className="flex flex-row gap-4 justify-end">
+                  <button className="text-red-700 cursor-pointer" onClick={handleDelete}>Yes</button>
+                  <button className="text-blue-900 cursor-pointer" onClick={() => setShowModal(false)}>No</button>
+                </div>
+              </div>
+            }
           </div>
            
          
@@ -142,6 +168,7 @@ const ProjectDetail = ({setShowDetails, id, object}) => {
 
 </div>
     </div>
+    
   );
 };
 

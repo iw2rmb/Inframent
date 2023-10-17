@@ -11,6 +11,10 @@ const DpAreas = () => {
   const dispatch = useDispatch();
   const [showDetails, setShowDetails] = useState(false)
   const [pictureId, setPictureId] = useState(null)
+  const deleteDpArea = useSelector((state) => state?.deleteDpArea)
+  const {status} = deleteDpArea;
+
+
 
   const data = location.state.data;
 
@@ -29,14 +33,28 @@ const DpAreas = () => {
     },
   ];
 
+
+  useEffect(() => {
+    if (status === 'successful') {
+      dispatch(fetchDpAreas(data.id));
+      setShowDetails(false)
+    setPictureId('')
+    }
+  }, [status, data, dispatch]);
+
+
+  
   useEffect(() => {
     dispatch(fetchDpAreas(data.id));
   }, [data, dispatch]);
 
   const handleShowPicture = (id) => {
+    setPictureId('')
     setShowDetails(true)
     setPictureId(id)
     dispatch(fetchDpPictures(id))
+
+    console.log(id)
   }
 
   const { loading, areas } = useSelector((state) => state?.listDpAreas);
@@ -96,7 +114,7 @@ const DpAreas = () => {
             <h1 className="text-[16px] font-semibold mt-2">Depth</h1>
             <p className="text-[15px]">{area?.depth}cm</p>
             <div className="mt-8 flex flex-1 justify-end">
-              <button className="text-blue-700 cursor-pointer" onClick={() => handleShowPicture(data?.id)}>Full details</button>
+              <button className="text-blue-700 cursor-pointer" onClick={() => handleShowPicture(area?.id)}>Full details</button>
             </div>
             </div>
             {

@@ -16,7 +16,10 @@ import {
   FETCH_DP_PICTURE_FAILED,
   FETCH_ALL_DP_PICTURES,
   FETCH_ALL_DP_PICTURES_SUCCESSFUL,
-  FETCH_ALL_DP_PICTURES_FAILED
+  FETCH_ALL_DP_PICTURES_FAILED,
+  DELETE_DP_AREA,
+  DELETE_DP_AREA_SUCCESSFUL,
+  DELETE_DP_AREA_FAILED
 } from "../constant/products";
 
 export const fetchProjectsReducer = (
@@ -144,6 +147,32 @@ export const fetchAllDpPictures = (
         loading: false, dpPictures: action?.payload
       }
     case FETCH_ALL_DP_PICTURES_FAILED:
+      return {
+        loading: false
+      }
+    default: return state
+  }
+}
+
+
+
+
+
+
+
+export const deleteDpArea = (
+  state = {loading: false, status: null}, action
+) => {
+  switch (action.type) {
+    case DELETE_DP_AREA:
+      return {
+        loading: true
+      };
+    case DELETE_DP_AREA_SUCCESSFUL:
+      return {
+        loading: false, status: 'successful'
+      }
+    case DELETE_DP_AREA_FAILED:
       return {
         loading: false
       }
