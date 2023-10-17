@@ -58,11 +58,9 @@ const ProjectDetail = ({setShowDetails, id, object}) => {
   
 
  const handleDelete = () => {
-  console.log(data?.depth)
-  // console.log(data?.dp_note)
+
   dispatch(deleteDpArea(id, data?.dp_area?.name, data?.dp_note, data?.depth))
 
-  // categoryName, dpNote, depth,
  }
 
 
@@ -94,10 +92,10 @@ const ProjectDetail = ({setShowDetails, id, object}) => {
 
 
                     <div className="flex flex-row gap-2">
-                      {/* <p>Lat: <span>{getWholeAndDecimal(picture?.latitude)}</span>
+                      <p>Lat: <span>{getWholeAndDecimal(picture?.latitude)}</span>
                       </p>
                       <p>Lon: <span>{getWholeAndDecimal(picture?.longitude)}</span>
-                        </p> */}
+                        </p>
                     </div>
 
                <MdOutlineContentCopy className="text-blue-700 text-xl cursor-pointer"/>

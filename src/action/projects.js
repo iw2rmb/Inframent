@@ -223,7 +223,7 @@ export const deleteDpArea = (id, categoryName, dpNote, depth) => async (dispatch
     type: DELETE_DP_AREA,
   });
 
-  console.log(categoryName, dpNote, depth, id)
+
 
   const data = sessionStorage.getItem("userInfo");
   const authToken = JSON.parse(data)?.auth_token;
@@ -245,7 +245,6 @@ export const deleteDpArea = (id, categoryName, dpNote, depth) => async (dispatch
       type: DELETE_DP_AREA_SUCCESSFUL,
       payload: data,
     });
-    console.log(data)
 
     toast.success('Picture successfully deleted', {
       position: "bottom-right",
@@ -266,6 +265,5 @@ export const deleteDpArea = (id, categoryName, dpNote, depth) => async (dispatch
           ? error.response.data.message
           : error.message,
     });
-    console.log(error)
   }
 };

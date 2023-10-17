@@ -54,7 +54,7 @@ const DpAreas = () => {
     setPictureId(id)
     dispatch(fetchDpPictures(id))
 
-    console.log(id)
+  
   }
 
   const { loading, areas } = useSelector((state) => state?.listDpAreas);
@@ -71,7 +71,7 @@ const DpAreas = () => {
     return `${wholeNumber}.${decimalDigits}`;
   }
 
-  console.log(areas)
+ 
 
   return (
     <div className="flex flex-col gap-[4%] py-8 px-[20px] h-[100%]">
@@ -102,7 +102,6 @@ const DpAreas = () => {
             <div className="p-4">
               <p className="text-[16px] font-semibold">Location</p>
             <div className="flex flex-row justify-between mt-1.5">
-               {/* <p className="text-[15px]"> <span>Lat: {getWholeAndDecimal(area?.latitude)}</span> <span>Lon:  {getWholeAndDecimal(area?.longitude)}</span></p> */}
                <h1 className="text-[15px]">
   <span>Lat: {getWholeAndDecimal(area?.latitude || 0)}</span>
   <span>Lon: {getWholeAndDecimal(area?.longitude || 0)}</span>
