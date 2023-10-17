@@ -20,10 +20,7 @@ const ProjectDetail = ({setShowDetails, id, object}) => {
     }
   }, [picture, object])
  
-  
-  // data?.dp_area?.name
-  useEffect(() => {
-  }, [ dispatch, picture])
+
 
 
   function getWholeAndDecimal(decimalNumber) {
