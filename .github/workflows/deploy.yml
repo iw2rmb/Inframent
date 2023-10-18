@@ -14,14 +14,8 @@ jobs:
         # Setting environment variable from GitHub Secrets
       - name: Fetch REACT_APP_BASE_URL from Secrets Manager
         run: |
-          SECRET_RAW=$(aws secretsmanager get-secret-value --secret-id REACT_APP_BASE_URL)
-          echo "Raw output: $SECRET_RAW"
-
-          SECRET=$(echo $SECRET_RAW | jq -r .SecretString)
-          echo "Extracted SECRET: $SECRET"
-
-          REACT_APP_BASE_URL=$(echo $SECRET | jq -r .REACT_APP_BASE_URL)
-          echo "REACT_APP_BASE_URL extracted: $REACT_APP_BASE_URL"
+          REACT_APP_BASE_URL=$(aws secretsmanager get-secret-value --secret-id REACT_APP_BASE_URL --query 'SecretString' --output text)
+          echo "REACT_APP_BASE_URL: $REACT_APP_BASE_URL"
 
       - name: Set Environment Variables from .env
         run: |
