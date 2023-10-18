@@ -11,7 +11,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        # Setting environment variable from GitHub Secrets
+      - name: Set REACT_APP_BASE_URL from GitHub Secrets
+        run: echo "REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }}" >> $GITHUB_ENV
       - name: Set Environment Variables from .env
         run: |
           cat .env | while read line; do
