@@ -47,7 +47,7 @@ const DpAreas = () => {
     const [wholeNumber, decimalPart] = decimalNumber.toString().split('.');
   
     // Get the first three digits of the decimal part.
-    const decimalDigits = decimalPart.substring(0, 3);
+    const decimalDigits = decimalPart?.substring(0, 3);
   
     // Return the whole number, the decimal point, and the first three digits of the decimal part.
     return `${wholeNumber}.${decimalDigits}`;
