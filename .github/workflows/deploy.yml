@@ -34,7 +34,7 @@ jobs:
 
       - name: Fetch REACT_APP_BASE_URL from Secrets Manager
         run: |
-          SECRET=$(aws secretsmanager get-secret-value --secret-id YOUR_SECRET_NAME | jq -r .SecretString)
+          SECRET=$(aws secretsmanager get-secret-value --secret-id REACT_APP_BASE_URL | jq -r .SecretString)
           REACT_APP_BASE_URL=$(echo $SECRET | jq -r .REACT_APP_BASE_URL)
           echo "REACT_APP_BASE_URL=$REACT_APP_BASE_URL" >> $GITHUB_ENV
 
