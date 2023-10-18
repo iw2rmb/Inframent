@@ -11,12 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        # Setting environment variable from GitHub Secrets
-      - name: Fetch REACT_APP_BASE_URL from Secrets Manager
-        run: |
-          REACT_APP_BASE_URL=$(aws secretsmanager get-secret-value --secret-id REACT_APP_BASE_URL --query 'SecretString' --output text)
-          echo "REACT_APP_BASE_URL: $REACT_APP_BASE_URL"
 
+      # Setting environment variable from .env
       - name: Set Environment Variables from .env
         run: |
           cat .env | while read line; do
@@ -25,12 +21,30 @@ jobs:
             fi
           done
 
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install jq
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Fetch REACT_APP_BASE_URL from Secrets Manager
+        run: |
+          SECRET=$(aws secretsmanager get-secret-value --secret-id YOUR_SECRET_NAME | jq -r .SecretString)
+          REACT_APP_BASE_URL=$(echo $SECRET | jq -r .REACT_APP_BASE_URL)
+          echo "REACT_APP_BASE_URL=$REACT_APP_BASE_URL" >> $GITHUB_ENV
+
       - name: Install and Build
         run: |
           npm ci
           npm run build
         env:
           CI: false
+
       - name: List directories
         run: |
           ls -al
