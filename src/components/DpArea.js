@@ -3,20 +3,25 @@ import {IoMdArrowDropright} from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDP } from '../action/projects';
 import CircularProgress from '@mui/material/CircularProgress';
+import {useLocation, useNavigate} from 'react-router-dom'
 const DpArea = ({setSelectedDP, selectedSubProject}) => {
 
   const dispatch = useDispatch();
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const selectedSubProjectId = location?.pathname.split('/')[3]
   const [selectedDpId, setSelectedDpId] = useState(0)
   const {loading, dpAreas}  = useSelector((state) => state?.listPopAreas)
 
   useEffect(() => {
-    dispatch(fetchDP(selectedSubProject))
-  }, [dispatch, selectedSubProject])
+    dispatch(fetchDP(selectedSubProjectId))
+  }, [dispatch, selectedSubProjectId])
 
-  const handleSelectedDpArea = (area) => {
 
-    setSelectedDP(area.id, area.name)
-    setSelectedDpId(area.id)
+
+  const handleNavigate = (id) => {
+    navigate(`${location.pathname}/${id}`)
   }
 
   return (
@@ -30,7 +35,7 @@ const DpArea = ({setSelectedDP, selectedSubProject}) => {
         dpAreas?.map((areas) => 
 
         (
-            <div  key={areas.id} onClick={() => handleSelectedDpArea(areas)} className={`flex flex-row w-[100%] cursor-pointer border border-b-gray-400 border-white px-3 justify-between py-5 ${selectedDpId === areas?.id ? 'bg-indigo-200 border-indigo-200' : 'border-white'}`}>
+            <div  key={areas.id} onClick={() => handleNavigate(areas?.id)} className={`flex flex-row w-[100%] cursor-pointer border border-b-gray-400 border-white px-3 justify-between py-5 ${selectedDpId === areas?.id ? 'bg-indigo-200 border-indigo-200' : 'border-white'}`}>
                 <h1 className='text-xl w-[90%]'>{areas.name}</h1>
                 <IoMdArrowDropright className='text-2xl' />
             </div>

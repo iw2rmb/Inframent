@@ -1,26 +1,45 @@
 import React, {useEffect, useState} from 'react';
+import {BiSolidRightArrow} from 'react-icons/bi';
 import {IoMdArrowDropright} from 'react-icons/io';
-import { useDispatch, useSelector } from 'react-redux';
+import { UseSelector, useDispatch, useSelector } from 'react-redux';
 import { fetchSubProjects } from '../action/projects';
 import CircularProgress from '@mui/material/CircularProgress';
+import {useLocation, Link, useNavigate} from 'react-router-dom'
 const SubProject = ({setSelectedSubProject, selectedProject}) => {
   const dispatch = useDispatch();
-
+  const location = useLocation()
+  const navigate = useNavigate()
+  // console.log(location?.pathname.split('/')[2])
+  const pathname = location?.pathname
+  const selectedProjectId = location?.pathname.split('/')[2]
+  const [proj, setProj] = useState()
   const [selectedSubProjectId, setSelectedSubProjectId] = useState(0);
+  const {loading, subProjects} = useSelector((state) => state?.listSubProjects)
+
+const handleNavigate = (id) => {
+  navigate(`/projects/1/${id}`)
+}
   useEffect(() => {
       setSelectedSubProjectId(0)
   }, [selectedProject])
 
   useEffect(() => {
-      dispatch(fetchSubProjects(selectedProject))
-  }, [selectedProject, dispatch])
+    if (subProjects) {
+      setProj(subProjects)
+    }
+    
+  }, [subProjects])
 
-  const {loading, subProjects} = useSelector((state) => state?.listSubProjects)
+  useEffect(() => {
+      dispatch(fetchSubProjects(selectedProjectId))
+  }, [selectedProject, location])
 
-  const handleSelectedSubProject = (project) => {
-    setSelectedSubProject(project.id, project.name)
-    setSelectedSubProjectId(project.id)
-  }
+
+
+  // const handleSelectedSubProject = (project) => {
+  //   setSelectedSubProject(project.id, project.name)
+  //   setSelectedSubProjectId(project.id)
+  // }
 
   return (
     <div className='border pb-4 h-[100%] bg-white w-[30%] shadow-xl rounded-2xl'>
@@ -28,14 +47,17 @@ const SubProject = ({setSelectedSubProject, selectedProject}) => {
       {
       loading ? <div className='flex-1 flex justify-center'>
         <CircularProgress />
-      </div>  : subProjects.length > 0 ? <div>
+      </div>  : proj?.length > 0 ? <div>
       {
-          subProjects?.map((project) => 
+          proj?.map((project) => 
           (
-              <div  key={project.id} onClick={() => handleSelectedSubProject(project)} className={`flex flex-row w-[100%] cursor-pointer border border-b-gray-400  px-3 justify-between py-5 ${selectedSubProjectId === project?.id ? 'bg-indigo-200 border-indigo-200' : 'border-white'}`}>
+            // <Link to={`${pathname}/${project.id}`} >
+            <div onClick={() => handleNavigate(project?.id)} key={project.id}  className={`flex flex-row w-[100%] cursor-pointer border border-b-gray-400  px-3 justify-between py-5 ${selectedSubProjectId === project?.id ? 'bg-indigo-200 border-indigo-200' : 'border-white'}`}>
                   <h1 className='text-xl font-roboto'>{project.name}</h1>
                   <IoMdArrowDropright className='text-2xl' />
               </div>
+            // </Link>
+              
           )
           )
       }

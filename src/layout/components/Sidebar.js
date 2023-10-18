@@ -6,25 +6,26 @@ import {MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight} from 'react-ico
 
 
 const Sidebar = ({setToggleOpen}) => {
-  const params = useLocation()
+  const location = useLocation()
+  const pathname = location.pathname.split('/')
     const [showSlide, setShowSlide] = useState(false);
     const [showOptions, setShowOptions] = useState(false)
     const active = 1;
 
 
-    const [currParam, setCurrParam] = useState();
-    const updateParam = () => {
-        setCurrParam(params.pathname);
-    }
-    useEffect(() => {
-        updateParam();
-    }, [params, updateParam]);
+    // const [currParam, setCurrParam] = useState();
+    // const updateParam = () => {
+    //     setCurrParam(params.pathname);
+    // }
+    // useEffect(() => {
+    //     updateParam();
+    // }, [params, updateParam]);
 
     const navLinks = [
         {
             id: 1,
             title: 'Projects',
-            link: '/',
+            link: '/projects',
             icon: <AiOutlineFolder />
         },
         {
@@ -52,7 +53,7 @@ const Sidebar = ({setToggleOpen}) => {
         <div className='w-[80%] mt-[3rem] flex flex-col items-center gap-3'>
             {
             navLinks.map((nav) => (
-                <Link to={nav.link} key={nav.id} className={`flex flex-row  items-center ${nav.link === currParam ? 'bg-[#355CA8] text-white' : ''}  rounded-full ${!showSlide ? 'h-[4rem] w-[4rem] justify-center items-center' : 'w-[100%] h-[50px] pl-4 gap-2 drop-shadow-xl'}`}>
+                <Link to={nav.link} key={nav.id} className={`flex flex-row  items-center ${nav.link === `/${pathname[1]}` ? 'bg-[#355CA8] text-white' : ''}  rounded-full ${!showSlide ? 'h-[4rem] w-[4rem] justify-center items-center' : 'w-[100%] h-[50px] pl-4 gap-2 drop-shadow-xl'}`}>
                     
                     <div className='text-[28px] '>
                         {nav.icon}
