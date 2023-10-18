@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
 import { fetchDpAreas, fetchDpPictures } from "../action/projects";
 import { useSelector, useDispatch } from "react-redux";
-import  {AiOutlineCopy} from 'react-icons/ai'
 import { CircularProgress } from "@mui/material";
 import {MdOutlineContentCopy} from 'react-icons/md'
 import ProjectDetail from "../components/projectDetail";
@@ -12,12 +11,11 @@ const DpAreas = () => {
   const dispatch = useDispatch();
   const [showDetails, setShowDetails] = useState(false)
   const [pictureId, setPictureId] = useState(null)
-  const pathname = location.pathname
   const data = location?.pathname?.split('/')[4]
 
   useEffect(() => {
     dispatch(fetchDpAreas(data));
-  }, [data]);
+  }, [data, dispatch]);
 
   const handleShowPicture = (id) => {
     setShowDetails(true)
@@ -54,7 +52,7 @@ const DpAreas = () => {
         {areas?.map((area) => (
           <div key={area.id} className="flex flex-col border rounded-xl font-roboto">
             <div className="flex flex-row bg-gray-200 p-[8px] rounded-xl gap-[5%]">
-              <img src={area?.dp_image} alt="construction image" className="w-40 h-40 rounded-lg"/>
+              <img src={area?.dp_image} alt={area?.dp_image} className="w-40 h-40 rounded-lg"/>
               <div className="flex flex-row flex-1 p-1 justify-between">
                 <div>
                   <h1 className="text-[16px] font-mono">12:23:34, 12/09/22</h1>

@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {IoMdArrowDropright} from 'react-icons/io'
-
 import CircularProgress from '@mui/material/CircularProgress';
 
 const ProjectCard = ({setSelectedProject, data, title}) => {

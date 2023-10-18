@@ -11,6 +11,7 @@ const Projects = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const [projectInfo, setProjectInfo] = useState()
+  const [selectedProject, setSelectedProject] = useState()
 
   const {loading, projects} = useSelector((state) => state?.listProjects);
 
@@ -32,6 +33,9 @@ if (projects) {
     
   }, [dispatch, data])
 
+  useEffect(() => {
+      setSelectedProject(location?.pathname.split('/')[2])
+  }, [location])
 
   return (
     <div className='pb-4 h-[100%] w-[30%] shadow-xl rounded-2xl bg-white'>
@@ -47,7 +51,7 @@ if (projects) {
           (
             <Link to={`/projects/${project.project_id}`} key={project.project_id}>
             <div    className={`flex flex-row w-[100%] cursor-pointer border border-b-gray-400  px-3 justify-between py-5
-             ${'' === project?.project_id ? 'bg-indigo-200 border-indigo-200' : 'border-white'}`}>
+             ${selectedProject === `${project?.project_id}` ? 'bg-indigo-200 border-indigo-200' : 'border-white'}`}>
                   <h1 className='text-xl font-roboto'>{project.name}</h1>
                   <IoMdArrowDropright className='text-2xl' />
               </div>

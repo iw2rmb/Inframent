@@ -10,16 +10,6 @@ const Sidebar = ({setToggleOpen}) => {
   const pathname = location.pathname.split('/')
     const [showSlide, setShowSlide] = useState(false);
     const [showOptions, setShowOptions] = useState(false)
-    const active = 1;
-
-
-    // const [currParam, setCurrParam] = useState();
-    // const updateParam = () => {
-    //     setCurrParam(params.pathname);
-    // }
-    // useEffect(() => {
-    //     updateParam();
-    // }, [params, updateParam]);
 
     const navLinks = [
         {
