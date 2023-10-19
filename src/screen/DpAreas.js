@@ -11,26 +11,10 @@ const DpAreas = () => {
   const dispatch = useDispatch();
   const [showDetails, setShowDetails] = useState(false)
   const [pictureId, setPictureId] = useState(null)
-
-  const data = location.state.data;
-
-  const links = [
-    {
-      id: 1,
-      link: data.project,
-    },
-    {
-      id: 2,
-      link: data.subProject,
-    },
-    {
-      id: 3,
-      link: data.dpArea,
-    },
-  ];
+  const data = location?.pathname?.split('/')[4]
 
   useEffect(() => {
-    dispatch(fetchDpAreas(data.id));
+    dispatch(fetchDpAreas(data));
   }, [data, dispatch]);
 
   const handleShowPicture = (id) => {
@@ -53,15 +37,15 @@ const DpAreas = () => {
     return `${wholeNumber}.${decimalDigits}`;
   }
 
-  console.log(areas)
+ 
 
   return (
     <div className="flex flex-col gap-[4%] py-8 px-[20px] h-[100%]">
-      <Breadcrumb links={links} />
-      {
+ <Breadcrumb />
+       {
         loading ? <div className='flex-1 flex justify-center'>
         <CircularProgress />
-      </div> : areas.length ? <div 
+      </div> : areas?.length ? <div 
       className="grid lg:grid-cols-4 gap-6 md:grid-cols-3 sm:grid-cols-1"
       >
 
@@ -84,11 +68,7 @@ const DpAreas = () => {
             <div className="p-4">
               <p className="text-[16px] font-semibold">Location</p>
             <div className="flex flex-row justify-between mt-1.5">
-               {/* <p className="text-[15px]"> <span>Lat: {getWholeAndDecimal(area?.latitude)}</span> <span>Lon:  {getWholeAndDecimal(area?.longitude)}</span></p> */}
-               <h1 className="text-[15px]">
-  <span>Lat: {getWholeAndDecimal(area?.latitude || 0)}</span>
-  <span>Lon: {getWholeAndDecimal(area?.longitude || 0)}</span>
-</h1>
+               <p className="text-[15px]"> <span>Lat: {getWholeAndDecimal(area?.latitude)}</span> <span>Lon:  {getWholeAndDecimal(area?.longitude)}</span></p>
                <MdOutlineContentCopy className="text-blue-700 text-xl cursor-pointer"/>
             </div>
             <h1 className="text-[16px] font-semibold mt-3">Note</h1>
@@ -96,7 +76,7 @@ const DpAreas = () => {
             <h1 className="text-[16px] font-semibold mt-2">Depth</h1>
             <p className="text-[15px]">{area?.depth}cm</p>
             <div className="mt-8 flex flex-1 justify-end">
-              <button className="text-blue-700 cursor-pointer" onClick={() => handleShowPicture(data?.id)}>Full details</button>
+              <button className="text-blue-700 cursor-pointer" onClick={() => handleShowPicture(area?.id)}>Full details</button>
             </div>
             </div>
             {

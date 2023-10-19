@@ -1,21 +1,24 @@
 import React, {useEffect, useState} from 'react';
 // import Slide from "@mui/material/Slide";
 import Sidebar from './components/Sidebar';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 const Layout = ({children}) => {
     const navigate = useNavigate();
     const [toggleOpen, setToggleOpen] = useState(false)
-
-
-    // Check if the user is not logged in the redirect to the login page
+  const location = useLocation();
     const data = sessionStorage.getItem("userInfo");
     useEffect(() => {
       if (!data) {
         navigate("/login");
         
         return ;
+      } 
+      else if (
+        location.pathname.split('/').length === 2
+      ) {
+        navigate("/projects");
       }
-    }, [data, navigate]);
+    }, [data, navigate, location.pathname]);
   return (
     <>
       {

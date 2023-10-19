@@ -1,4 +1,3 @@
-
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -11,33 +10,54 @@ import HomeScreen from "./screen/HomeScreen";
 import LoginScreen from "./screen/LoginScreen";
 import Layout from "./layout";
 import DpAreas from "./screen/DpAreas";
-import MapScreen from "./screen/MapScreen";
+import Projects from "./components/projects";
+import SubProject from "./components/SubProject";
+import DpArea from "./components/DpArea";
+
 function App() {
-  // Declaring the routes in the website
 
-  const Home = () => (
-    <Layout>
-      <HomeScreen />
-    </Layout>
-  )
-
-  const DpArea = () => (
+  const DpAreaa = () => (
     <Layout>
       <DpAreas />
-     </Layout>
-  )
-
-  const Map = () => (
-    <Layout>
-      <MapScreen />
     </Layout>
-  )
+  );
   const routes = [
-    <Route path="/" element={<Home />} />,
-    <Route  path="/login" element={<LoginScreen />} />,
-    <Route  path="/dp-areas" element={<DpArea />} />,
-    <Route  path="/map" element={<Map />} />,
-
+    <Route path="/" element={<Layout></Layout>} />,
+    <Route path="/login" element={<LoginScreen />} />,
+  <Route path="/projects/:projectId/:subprojectId/:dpAreaId" element={<DpAreaa />} />,
+    <Route
+      path="/projects"
+      element={
+        <Layout>
+          <HomeScreen>
+            <Projects />
+          </HomeScreen>
+        </Layout>
+      }
+    />,
+    <Route
+      path="/projects/:projectId"
+      element={
+        <Layout>
+          <HomeScreen>
+            <Projects />
+            <SubProject />
+          </HomeScreen>
+        </Layout>
+      }
+    />,
+    <Route
+      path="/projects/:projectId/:subprojectId"
+      element={
+        <Layout>
+          <HomeScreen>
+            <Projects />
+            <SubProject />
+            <DpArea />
+          </HomeScreen>
+        </Layout>
+      }
+    />,
   ];
 
   const router = createBrowserRouter(createRoutesFromElements(routes));
