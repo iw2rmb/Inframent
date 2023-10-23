@@ -13,6 +13,7 @@ import DpAreas from "./screen/DpAreas";
 import Projects from "./components/projects";
 import SubProject from "./components/SubProject";
 import DpArea from "./components/DpArea";
+import MapScreen from "./screen/MapScreen";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
   const routes = [
     <Route path="/" element={<Layout></Layout>} />,
     <Route path="/login" element={<LoginScreen />} />,
+    <Route path="/map" element={<Layout ><MapScreen /></Layout>} />,
   <Route path="/projects/:projectId/:subprojectId/:dpAreaId" element={<DpAreaa />} />,
     <Route
       path="/projects"

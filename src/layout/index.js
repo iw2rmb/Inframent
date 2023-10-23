@@ -18,7 +18,7 @@ const Layout = ({children}) => {
       ) {
         navigate("/projects");
       }
-    }, [data, navigate, location.pathname]);
+    }, [data, navigate]);
   return (
     <>
       {
