@@ -17,8 +17,9 @@ const Layout = ({children}) => {
         location.pathname.split('/').length === 2
       ) {
         navigate("/projects");
+        return
       }
-    }, [data, navigate]);
+    }, [data]);
   return (
     <>
       {

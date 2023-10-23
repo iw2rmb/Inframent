@@ -84,8 +84,9 @@ const DpAreas = () => {
       }
           </div>
         ))}
-      </div> : <div>
-        <h1>No data here</h1>
+      </div> : <div className="w-[100%] h-[100vh] items-center justify-center flex flex-col">
+       <img src="/assets/no-data.png" alt="" className=""/>
+       <h1 className="sans relative bottom-[4rem]">The DP picture has no area yet</h1>
       </div>
       }
 

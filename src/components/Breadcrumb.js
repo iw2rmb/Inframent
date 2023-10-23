@@ -17,7 +17,7 @@ const Breadcrumb = () => {
         <div key={index} className='flex cursor-pointer flex-row items-center gap-2'>
           <p
             className='font-mono'
-            onClick={() => navigate(`/${paths.slice(0, index + 1).join('/')}`)}
+            onClick={() => navigate(`/projects/${paths.slice(0, index + 1).join('/')}`)}
           >
             {path}
           </p>

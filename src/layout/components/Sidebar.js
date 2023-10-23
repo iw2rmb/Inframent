@@ -26,12 +26,42 @@ const Sidebar = ({setToggleOpen}) => {
         }
     ]
 
-    const handleLogOut = () => {
-      sessionStorage.clear()
+  //   const handleLogOut = () => {
+  //     sessionStorage.clear()
+  //   }
+  //   useEffect(() => {
+  //     setToggleOpen(showSlide)
+    
+      
+  //   }, [showSlide, setToggleOpen])
+
+  // useEffect(() => {
+  //   sessionStorage.setItem("sidebar", JSON.stringify(false));
+  // }, [])
+
+
+
+  const handleLogOut = () => {
+    sessionStorage.clear();
+  };
+
+  useEffect(() => {
+    setToggleOpen(showSlide);
+  }, [showSlide, setToggleOpen]);
+
+  useEffect(() => {
+    // Get the sidebar state from local storage.
+    const localStorageSidebarState = localStorage.getItem('sidebarIsOpen');
+    if (localStorageSidebarState) {
+      setShowSlide(JSON.parse(localStorageSidebarState));
     }
-    useEffect(() => {
-      setToggleOpen(showSlide)
-    }, [showSlide, setToggleOpen])
+  }, []);
+
+  useEffect(() => {
+    // Update local storage with the sidebar state.
+    localStorage.setItem('sidebarIsOpen', JSON.stringify(showSlide));
+  }, [showSlide]);
+
 
     
   return (

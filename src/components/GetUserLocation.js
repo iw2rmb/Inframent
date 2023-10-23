@@ -16,7 +16,7 @@ const GetUserLocation = ({setCurrentLocation}) => {
 
 
 
-
+  console.log('called get user location')
 
   var options = {
     enableHighAccuracy: true,
@@ -26,6 +26,7 @@ const GetUserLocation = ({setCurrentLocation}) => {
   function success(pos) {
     var crd = pos.coords;
     setCurrentLocation({lng: crd.longitude, lat: crd.latitude})
+    console.log('accepted')
   }
 
   function errors(err) {
@@ -44,9 +45,11 @@ const GetUserLocation = ({setCurrentLocation}) => {
             //If prompt then the user will be asked to give permission
             navigator.geolocation.getCurrentPosition(success, errors, options);
             setCurrentLocation({ lng: 5.0790560221990315, lat: 52.08479093992793 })
+            console.log('not accepted')
           } else if (result.state === "denied") {
             //If denied then you have to show instructions to enable location
             setCurrentLocation({ lng: 5.0790560221990315, lat: 52.08479093992793 })
+            console.log('denied')
            
           }
         });

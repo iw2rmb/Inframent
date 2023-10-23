@@ -6,12 +6,14 @@ import "./map.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllDPPictures } from "../action/projects";
 import ProjectDetail from "../components/projectDetail";
+import GetUserLocation from "../components/GetUserLocation";
 
 const MapScreen = () => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markers = useRef([]);
-  const centerLocation = { lng: 4.33655, lat: 52.069554 };
+  // const centerLocation = { lng: 4.33655, lat: 52.069554 };
+  const [currentLocation, setCurrentLocation] = useState(null)
   const [zoom] = useState(18);
   const [showDetails, setShowDetails] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -37,16 +39,20 @@ const MapScreen = () => {
 
   const getMapStyleURL = () => {
     if (isSatelliteView) {
-      return `https://api.maptiler.com/maps/satellite/style.json?key=${MAPTILER_API_KEY}`;
+      return `https://api.maptiler.com/maps/satellite/style.json?key=CcOATuikfYaYqcmMIpGp`;
     }
-    return `https://api.maptiler.com/maps/2bc77a95-9f4a-4b6d-ad3a-d6ce6fb43b2f/style.json?key=${MAPTILER_API_KEY}`;
+    return `https://api.maptiler.com/maps/2bc77a95-9f4a-4b6d-ad3a-d6ce6fb43b2f/style.json?key=CcOATuikfYaYqcmMIpGp`;
   };
 
   useEffect(() => {
+
+    if (currentLocation) {
+
+    
     map.current = new maptilersdk.Map({
       container: mapContainer.current,
       style: getMapStyleURL(),
-      center: [centerLocation.lng, centerLocation.lat],
+      center: [currentLocation.lng, currentLocation.lat],
       zoom: zoom,
     });
 
@@ -69,11 +75,11 @@ const MapScreen = () => {
 
       markers.current.push(marker);
     });
+  }
   }, [
     isSatelliteView,
     dpPictures,
-    centerLocation.lat,
-    centerLocation.lng,
+    currentLocation,
     zoom,
   ]);
 
@@ -102,6 +108,8 @@ const MapScreen = () => {
       {showDetails && (
         <ProjectDetail setShowDetails={setShowDetails} object={selectedImage} />
       )}
+
+      <GetUserLocation setCurrentLocation={setCurrentLocation}/>
     </div>
   );
 };
