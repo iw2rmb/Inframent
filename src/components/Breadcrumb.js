@@ -6,13 +6,15 @@ const Breadcrumb = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+
+
   const paths = location.pathname
     .split('/')
     .filter((path) => path !== '')
     .slice(1);
 
   return (
-    <div className='flex flex-row gap-4 px-12 py-7 w-fit border rounded-full shadow-lg'>
+    <div className='flex fixed  z-[50] bg-white flex-row gap-4 px-12 py-7 w-fit border rounded-full shadow-lg'>
       {paths.map((path, index) => (
         <div key={index} className='flex cursor-pointer flex-row items-center gap-2'>
           <p

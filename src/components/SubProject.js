@@ -10,12 +10,13 @@ const SubProject = ({setSelectedSubProject, selectedProject}) => {
   const navigate = useNavigate()
   const pathname = location?.pathname
   const selectedProjectId = location?.pathname.split('/')[2]
+  // const selectedProject = location?.pathname.split('/')[2]
   const [proj, setProj] = useState()
   const [selectedSubProjectId, setSelectedSubProjectId] = useState(0);
   const {loading, subProjects} = useSelector((state) => state?.listSubProjects)
 
 const handleNavigate = (id) => {
-  navigate(`/projects/1/${id}`)
+  navigate(`/projects/${selectedProjectId}/${id}`)
 }
 
   useEffect(() => {
@@ -36,11 +37,11 @@ const handleNavigate = (id) => {
 }, [location])
   return (
     <div className='border pb-4 h-[100%] bg-white w-[30%] shadow-xl rounded-2xl'>
-      <h1 className='h-[15%] font-roboto w-[100%] flex items-center justify-center text-2xl font-[400]'>Sub Projects</h1>
+      <h1 className='h-[15%] font-roboto w-[100%] flex items-center justify-center text-2xl font-[400]'>Sub-projects</h1>
       {
       loading ? <div className='flex-1 flex justify-center'>
         <CircularProgress />
-      </div>  : proj?.length > 0 ? <div>
+      </div>  : proj?.length > 0 ? <div className='scroll-smooth'>
       {
           proj?.map((project) => 
           (
@@ -53,7 +54,7 @@ const handleNavigate = (id) => {
           )
       }
     </div>: <div className='flex-1 text-center'>
-      <h1 className='font-roboto text-2xl'>This project has no sub project, add one to get started.</h1>
+      <h1 className='sans'>This project has no sub-project, add one to get started.</h1>
     </div>
     }
     </div>

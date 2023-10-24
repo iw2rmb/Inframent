@@ -226,7 +226,7 @@ export const deleteDpArea = (id, categoryName, dpNote, depth) => async (dispatch
 
   const data = sessionStorage.getItem("userInfo");
   const authToken = JSON.parse(data)?.auth_token;
-
+  console.log(id)
   try {
     const { data } = await Axios.patch(`${BASE_URL}/projects/dp-pictures/${id}/update`, {
       "dp_category_name": categoryName,

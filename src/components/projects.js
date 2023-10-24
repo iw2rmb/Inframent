@@ -44,7 +44,7 @@ if (projects) {
     {
       loading ? <div className='flex-1 flex justify-center'>
         <CircularProgress />
-      </div>  : projectInfo?.length > 0 ? <div>
+      </div>  : projectInfo?.length > 0 ? <div className='scroll-smooth'>
       {
           projectInfo?.map((project) => 
 

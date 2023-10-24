@@ -26,20 +26,6 @@ const Sidebar = ({setToggleOpen}) => {
         }
     ]
 
-  //   const handleLogOut = () => {
-  //     sessionStorage.clear()
-  //   }
-  //   useEffect(() => {
-  //     setToggleOpen(showSlide)
-    
-      
-  //   }, [showSlide, setToggleOpen])
-
-  // useEffect(() => {
-  //   sessionStorage.setItem("sidebar", JSON.stringify(false));
-  // }, [])
-
-
 
   const handleLogOut = () => {
     sessionStorage.clear();
@@ -90,7 +76,7 @@ const Sidebar = ({setToggleOpen}) => {
         <div className='flex flex-row'>
             <h1 className='bg-red-200 px-5 py-3 font-bold rounded-full cursor-pointer' onClick={() => setShowOptions(!showOptions)}>T</h1>
             {
-              showOptions && <Link to="/login" className='absolute mt-2 flex flex-row items-center gap-2 p-2 text-red-500 border bg-gray-200 drop-shadow-xl w-fit ml-[4rem]' onClick={handleLogOut}>
+              showOptions && <Link to="/login" className='fixed mt-2 flex flex-row items-center gap-2 p-2 text-red-500 border bg-gray-200 drop-shadow-xl w-fit ml-[4rem]' onClick={handleLogOut}>
                 <FiLogOut className='text-[22px]' />
                 <p>Log Out</p>
             </Link>

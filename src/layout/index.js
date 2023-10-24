@@ -14,6 +14,12 @@ const Layout = ({children}) => {
         return ;
       } 
       else if (
+        location.pathname.split('/')[location.pathname.split('/').length - 1] === 'map'
+      ) {
+        navigate('/map')
+      }
+
+      else if (
         location.pathname.split('/').length === 2
       ) {
         navigate("/projects");

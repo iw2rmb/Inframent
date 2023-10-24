@@ -6,17 +6,15 @@ import "./map.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllDPPictures } from "../action/projects";
 import ProjectDetail from "../components/projectDetail";
-import GetUserLocation from "../components/GetUserLocation";
-
+import { fetchDpPictures } from "../action/projects";
 const MapScreen = () => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markers = useRef([]);
-  // const centerLocation = { lng: 4.33655, lat: 52.069554 };
   const [currentLocation, setCurrentLocation] = useState(null)
   const [zoom] = useState(18);
   const [showDetails, setShowDetails] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
 
   const [isSatelliteView, setIsSatelliteView] = useState(false);
 
@@ -27,13 +25,19 @@ const MapScreen = () => {
 
   const { dpPictures } = dpPicture;
 
+  const deleteDp = useSelector((state) => state?.deleteDpArea)
+
+  useEffect(() => {
+    setCurrentLocation({ lng: 4.334043, lat: 52.068897 })
+  }, [])
+
   useEffect(() => {
     dispatch(fetchAllDPPictures());
-  }, [dispatch]);
+  }, [dispatch, deleteDp]);
 
   useEffect(() => {
     if (!showDetails) {
-      setSelectedImage(null);
+      setSelectedId(null);
     }
   }, [showDetails]);
 
@@ -58,39 +62,50 @@ const MapScreen = () => {
 
     dpPictures?.forEach((markerItem) => {
       const marker = document.createElement("div");
-      marker.className = "marker";
-      marker.style.backgroundImage = `url(${markerItem?.thumbnail_image})`;
+
+      const markerBox = document.createElement("div");
+      markerBox.style.backgroundImage = `url(${markerItem?.thumbnail_image})`;
+      markerBox.className = "markerBox";
       const triangle = document.createElement("div");
       triangle.className = "triangle";
 
-      marker.appendChild(triangle);
+      marker.appendChild(markerBox);
+      markerBox.append(triangle)
+
+      
 
       marker.addEventListener("click", () => {
         setShowDetails(true);
-        setSelectedImage(markerItem);
+        setSelectedId(markerItem?.id);
+        dispatch(fetchDpPictures(markerItem?.id))
       });
 
+ 
       const latLng = { lng: markerItem?.longitude, lat: markerItem?.latitude };
       new maptilersdk.Marker(marker).setLngLat(latLng).addTo(map.current);
-
       markers.current.push(marker);
+
+
+     
+
     });
+  
   }
   }, [
     isSatelliteView,
     dpPictures,
     currentLocation,
     zoom,
+    deleteDp
   ]);
 
   return (
     <div className="flex-1 h-screen">
       <div ref={mapContainer} className="w-[100%] h-[100%]" />
-      <div className="absolute bottom-[3rem] right-[5px] bg-white flex flex-col items-center justify-evenly w-[3rem] rounded-3xl h-[6.5rem]  gap-4">
+      <div className="absolute bottom-[3rem] right-[1.5rem] bg-white flex flex-col items-center justify-evenly w-[3rem] rounded-3xl h-[6.5rem]  gap-4">
         <div
           className="border p-1 rounded-full bg-slate-200"
-          onClick={() => setIsSatelliteView(false)}
-        >
+          onClick={() => setIsSatelliteView(false)}>
           <BiCurrentLocation className="text-[24px]" />
         </div>
         <div
@@ -106,10 +121,9 @@ const MapScreen = () => {
       </div>
 
       {showDetails && (
-        <ProjectDetail setShowDetails={setShowDetails} object={selectedImage} />
+        <ProjectDetail setShowDetails={setShowDetails} id={selectedId} />
       )}
 
-      <GetUserLocation setCurrentLocation={setCurrentLocation}/>
     </div>
   );
 };
