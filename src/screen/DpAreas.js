@@ -74,12 +74,11 @@ console.log(areas)
           <div key={area.id} className="flex flex-col border rounded-xl font-roboto">
             <div className="flex flex-row bg-gray-200 p-[8px] rounded-xl gap-[5%]">
               <img src={area?.thumbnail_image} alt={area?.dp_image} className={`w-40 h-40 rounded-lg ${area?.thumbnail_image ? '' : 'bg-gray-600'}`}/>
-              <div className="flex flex-row flex-wrap flex-1 p-1 justify-between">
-                <div className="flex flex-col">
+              <div className="flex flex-row flex-1 p-1 justify-between">
+                <div className="flex flex-col w-[70%]">
                   <h1 className="text-[16px] font-mono">{area?.created_at_local}</h1>
-                  {/* <h1 className="text-[16px] font-mono">{area?.created_at_local.slice(0, -6)}</h1> */}
                   
-                  <button className="border rounded-lg shadow-md cursor-not-allowed text-[15px] border-gray-400 p-1">To inspect</button>
+                  <button className="border rounded-lg shadow-md cursor-not-allowed text-[15px] border-gray-400 p-1 w-fit">To inspect</button>
                 </div>
                 {
                   area?.updated_by?.profile_picture ? <img src={area?.updated_by?.profile_picture} alt="profile picture" className="w-20 h-10 rounded-full"/> : <p className="bg-yellow-600 w-10 h-10 uppercase rounded-full flex items-center justify-center"><span>{area?.created_by?.username.slice(0, 2)}</span></p>
