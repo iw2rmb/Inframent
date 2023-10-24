@@ -101,7 +101,7 @@ const ProjectDetail = ({ setShowDetails, id }) => {
               />
             </div>
             <div className="p-4 ">
-              <div className="overflow-scroll scroll-smooth h-[82.5%]">
+              <div className="overflow-scroll scroll-smooth h-[85.5%]">
                 <p className="text-[16px] font-semibold">Location</p>
                 <div className="flex flex-row justify-between mt-1.5">
                   <div className="flex flex-row gap-2">
