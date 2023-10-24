@@ -77,8 +77,8 @@ const ProjectDetail = ({ setShowDetails, id }) => {
 
 
   return (
-    <div className="fixed flex items-center justify-center z-10 backdrop top-0 left-0 w-[100%] h-[100%]">
-      {loading === true ? (
+    <div className="fixed flex items-center justify-center z-10 backdrop-filter top-0 left-0 w-[100%] h-[100%]">
+      {loading ? (
         <div>loading</div>
       ) : !data ? (
         ""
@@ -101,7 +101,7 @@ const ProjectDetail = ({ setShowDetails, id }) => {
               />
             </div>
             <div className="p-4 ">
-              <div className="overflow-scroll scroll-smooth h-[92.5%]">
+              <div className="overflow-scroll scroll-smooth h-[82.5%]">
                 <p className="text-[16px] font-semibold">Location</p>
                 <div className="flex flex-row justify-between mt-1.5">
                   <div className="flex flex-row gap-2">

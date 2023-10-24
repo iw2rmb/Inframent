@@ -51,7 +51,7 @@ const Sidebar = ({setToggleOpen}) => {
 
     
   return (
-    <div className={`h-[100%] fixed ${!showSlide ? 'slide-out-in ' : 'slide-in'} py-8 w-fit bg-[#D9E2FF] flex flex-col justify-between`}>
+    <div className={`h-[100vh] top-0 fixed ${!showSlide ? 'slide-out-in ' : 'slide-in'} py-8 w-fit bg-[#D9E2FF] flex flex-col justify-between`}>
       <div className='flex flex-col items-center'>
         <Link to="/projects" className='flex justify-center'>
         <img src="/assets/inframent-logo.png" alt="inframent web app logo icon" className={`bg-white cursor-pointer rounded-full drop-shadow-lg w-[80%] max-w-[120px]`}/>

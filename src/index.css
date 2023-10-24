@@ -17,8 +17,8 @@
     font-family: 'Roboto', sans-serif;
   }
 
-  .backdrop{
-    background-color: rgba(51, 50, 50, 0.1);
+  .backdrop-filter{
+    background-color: rgba(90, 90, 90, 0.1);
   }
 
 

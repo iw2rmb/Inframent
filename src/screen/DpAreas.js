@@ -14,18 +14,21 @@ const DpAreas = () => {
   const [showDetails, setShowDetails] = useState(false)
   const [pictureId, setPictureId] = useState(null)
   const data = location?.pathname?.split('/')[4]
+  const {  areas, loading } = useSelector((state) => state?.listDpAreas);
+
 
   useEffect(() => {
-    dispatch(fetchDpAreas(data));
+      dispatch(fetchDpAreas(data));
   }, [data, dispatch]);
 
   const handleShowPicture = (id) => {
     setShowDetails(true)
     setPictureId(id)
     dispatch(fetchDpPictures(id))
+    console.log('called')
   }
 
-  const { loading, areas } = useSelector((state) => state?.listDpAreas);
+
   
 
   function getWholeAndDecimal(decimalNumber) {
@@ -56,12 +59,12 @@ const DpAreas = () => {
     });
 
  }
-
+console.log(areas)
   return (
     <div className="flex flex-col gap-[4%] py-8 px-[20px] h-[100%]">
  <Breadcrumb />
        {
-        loading ? <div className='flex-1 flex justify-center'>
+        loading ? <div className='flex-1 flex justify-center h-[100vh] items-center'>
         <CircularProgress />
       </div> : areas?.length ? <div 
       className="grid lg:grid-cols-4 mt-[6.5rem] gap-6 md:grid-cols-3 sm:grid-cols-1 scroll-smooth"
@@ -73,12 +76,13 @@ const DpAreas = () => {
               <img src={area?.thumbnail_image} alt={area?.dp_image} className="w-40 h-40 rounded-lg"/>
               <div className="flex flex-row flex-wrap flex-1 p-1 justify-between">
                 <div className="flex flex-col">
-                  {/* <h1 className="text-[16px] font-mono">{area?.created_at_local}</h1> */}
-                  {area?.created_at_local.slice(0, -6)}
+                  <h1 className="text-[16px] font-mono">{area?.created_at_local}</h1>
+                  {/* <h1 className="text-[16px] font-mono">{area?.created_at_local.slice(0, -6)}</h1> */}
+                  
                   <button className="border rounded-lg shadow-md cursor-not-allowed text-[15px] border-gray-400 p-1">To inspect</button>
                 </div>
                 {
-                  area?.updated_by?.profile_picture ? <img src={area?.updated_by?.profile_picture} alt="profile picture" className="w-20 h-10 rounded-full"/> : <p className="bg-yellow-600 w-10 h-10 rounded-full flex items-center justify-center"><span>{area?.updated_by?.username.slice(0, 2)}</span></p>
+                  area?.updated_by?.profile_picture ? <img src={area?.updated_by?.profile_picture} alt="profile picture" className="w-20 h-10 rounded-full"/> : <p className="bg-yellow-600 w-10 h-10 uppercase rounded-full flex items-center justify-center"><span>{area?.created_by?.username.slice(0, 2)}</span></p>
                 }
 
               </div>

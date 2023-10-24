@@ -29,7 +29,7 @@ const Layout = ({children}) => {
   return (
     <>
       {
-        data && <div className='w-screen h-screen flex flex-row'>
+        data && <div className='w-screen h-[100vh] flex flex-row'>
       <div className={`${!toggleOpen ? 'slide-out-in' : 'slide-in '} h-[100vh]`}>
         <Sidebar setToggleOpen={setToggleOpen}/>
       </div>

@@ -31,7 +31,7 @@ const DpArea = () => {
           <CircularProgress />
         </div>
       ) : dpAreas.length > 0 ? (
-        <div className="scroll-smooth">
+        <div className="scroll-smooth overflow-y-scroll h-[85%]">
           {dpAreas?.map((areas) => (
             <div
               key={areas.id}

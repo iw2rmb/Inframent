@@ -41,7 +41,7 @@ const handleNavigate = (id) => {
       {
       loading ? <div className='flex-1 flex justify-center'>
         <CircularProgress />
-      </div>  : proj?.length > 0 ? <div className='scroll-smooth'>
+      </div>  : proj?.length > 0 ? <div className='scroll-smooth overflow-y-scroll h-[85%]'>
       {
           proj?.map((project) => 
           (
