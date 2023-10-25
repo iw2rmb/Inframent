@@ -289,7 +289,7 @@ export const createNewProject = ({id, name}) => async (dispatch) => {
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.get(`${BASE_URL}`, {
+    const { data } = await Axios.get(`${BASE_URL}/api/projects/${id}/add`, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -334,7 +334,7 @@ export const createNewSubProject = ({id, name}) => async (dispatch) => {
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.get(`${BASE_URL}`, {
+    const { data } = await Axios.get(`${BASE_URL}/api/pop-areas/${id}/add`, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
