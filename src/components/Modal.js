@@ -41,10 +41,10 @@ export default function BasicModal({type, setShowModal, showModal}) {
 <Box sx={style}>
            <div className='w-[35rem] h-[20rem] px-[10%] flex flex-col pt-[2rem] pb-[4rem] justify-between rounded-xl bg-white'>
             <div className='flex justify-end text-xl'>
-              <AiOutlineClose onClick={handleClose}/>
+              <AiOutlineClose className='cursor-pointer text-blue-500' onClick={handleClose}/>
             </div>
         
-        <h1 className='font-roboto text-2xl'>Add {type}</h1>
+        <h1 className='font-roboto text-2xl text-center'>Add {type}</h1>
         <input placeholder={`${type} name`} value={value} onChange={(e) => setValue(e.target.value)} className='border outline-none font-roboto bg-gray-200 px-2 py-3'/>
         <div className='text-[18px] font-roboto flex flex-row justify-end gap-[4rem]'>
         <button className='text-red-600' onClick={handleClose}>Cancel</button>
