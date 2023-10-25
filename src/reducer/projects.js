@@ -19,7 +19,16 @@ import {
   FETCH_ALL_DP_PICTURES_FAILED,
   DELETE_DP_AREA,
   DELETE_DP_AREA_SUCCESSFUL,
-  DELETE_DP_AREA_FAILED
+  DELETE_DP_AREA_FAILED,
+  ADD_PROJECT,
+  ADD_PROJECT_SUCCESSFUL,
+  ADD_PROJECT_FAILED,
+  ADD_DP_AREA,
+  ADD_DP_AREA_SUCCESSFUL,
+  ADD_DP_AREA_FAILED,
+  ADD_SUB_PROJECT,
+  ADD_SUB_PROJECT_SUCCESSFUL,
+  ADD_SUB_PROJECT_FAILED
 } from "../constant/products";
 
 export const fetchProjectsReducer = (
@@ -173,6 +182,73 @@ export const deleteDpArea = (
         loading: false, status: 'successful'
       }
     case DELETE_DP_AREA_FAILED:
+      return {
+        loading: false
+      }
+    default: return state
+  }
+}
+
+
+export const createNewProject = (
+  state = {loading: false, projectStatus: null}, action
+) => {
+  switch (action.type) {
+    case ADD_PROJECT:
+      return {
+        loading: true
+      };
+    case ADD_PROJECT_SUCCESSFUL:
+      return {
+        loading: false, projectStatus: 'successful'
+      }
+    case ADD_PROJECT_FAILED:
+      return {
+        loading: false
+      }
+    default: return state
+  }
+}
+
+
+
+
+
+export const createNewSubProject = (
+  state = {loading: false, subProjectStatus: null}, action
+) => {
+  switch (action.type) {
+    case ADD_SUB_PROJECT:
+      return {
+        loading: true
+      };
+    case ADD_SUB_PROJECT_SUCCESSFUL:
+      return {
+        loading: false, subProjectStatus: 'successful'
+      }
+    case ADD_SUB_PROJECT_FAILED:
+      return {
+        loading: false
+      }
+    default: return state
+  }
+}
+
+
+
+export const createNewDpArea = (
+  state = {loading: false, dpAreaStatus: null}, action
+) => {
+  switch (action.type) {
+    case ADD_DP_AREA:
+      return {
+        loading: true
+      };
+    case ADD_DP_AREA_SUCCESSFUL:
+      return {
+        loading: false, dpAreaStatus: 'successful'
+      }
+    case ADD_DP_AREA_FAILED:
       return {
         loading: false
       }

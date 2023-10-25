@@ -5,13 +5,16 @@ import {useSelector, useDispatch} from 'react-redux'
 // import { projects } from '../data';
 import CircularProgress from '@mui/material/CircularProgress';
 import { fetchProjects } from '../action/projects';
-import {useLocation, Link} from 'react-router-dom'
+import {useLocation, Link} from 'react-router-dom';
+import {AiOutlineFolderAdd} from 'react-icons/ai'
+import BasicModal from './Modal';
 
 const Projects = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const [projectInfo, setProjectInfo] = useState()
   const [selectedProject, setSelectedProject] = useState()
+  const [showModal, setShowModal] = useState(false)
 
   const {loading, projects} = useSelector((state) => state?.listProjects);
 
@@ -38,13 +41,13 @@ if (projects) {
   }, [location])
 
   return (
-    <div className='pb-4 h-[100%] w-[30%] shadow-xl rounded-2xl bg-white'>
+    <div className='pb-4 h-[100%] relative w-[30%] shadow-xl rounded-2xl bg-white'>
       <h1 className='h-[15%] w-[100%] font-roboto flex items-center justify-center text-2xl font-[400]'>Projects</h1>
 
     {
       loading ? <div className='flex-1 flex justify-center'>
         <CircularProgress />
-      </div>  : projectInfo?.length > 0 ? <div className='scroll-smooth overflow-y-scroll h-[85%]'>
+      </div>  : projectInfo?.length > 0 ? <div>
       {
           projectInfo?.map((project) => 
 
@@ -66,8 +69,8 @@ if (projects) {
     }
       
      
-
-      
+    <button className='absolute bottom-[2rem] right-[2rem] border cursor-pointer bg-[#E9E7EC] px-[2rem] py-[1.25rem] font-roboto flex flex-row gap-[1.5rem] items-center rounded-2xl text-blue-600 shadow-xl' onClick={() => setShowModal(true)}><AiOutlineFolderAdd className='text-blue-700 text-2xl'/> Add project</button>
+       <BasicModal type="Project" setShowModal={setShowModal} showModal={showModal}/>
     </div> 
   );
 }

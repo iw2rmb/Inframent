@@ -20,7 +20,16 @@ import {
   FETCH_ALL_DP_PICTURES_FAILED,
   DELETE_DP_AREA,
   DELETE_DP_AREA_SUCCESSFUL,
-  DELETE_DP_AREA_FAILED
+  DELETE_DP_AREA_FAILED,
+  ADD_PROJECT,
+  ADD_PROJECT_SUCCESSFUL,
+  ADD_PROJECT_FAILED,
+  ADD_DP_AREA,
+  ADD_DP_AREA_SUCCESSFUL,
+  ADD_DP_AREA_FAILED,
+  ADD_SUB_PROJECT,
+  ADD_SUB_PROJECT_SUCCESSFUL,
+  ADD_SUB_PROJECT_FAILED
 } from "../constant/products";
 import { toast } from "react-toastify";
 
@@ -56,7 +65,6 @@ export const fetchProjects = () => async (dispatch) => {
     });
   }
 };
-
 export const fetchSubProjects = (projectId) => async (dispatch) => {
   dispatch({
     type: FETCH_SUB_PROJECT,
@@ -258,6 +266,122 @@ export const deleteDpArea = (id, categoryName, dpNote, depth) => async (dispatch
   } catch (error) {
     dispatch({
       type: DELETE_DP_AREA_FAILED,
+      payload:
+        error.response && error.response.data[0]
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+
+
+
+
+
+export const createNewProject = ({id, name}) => async (dispatch) => {
+  dispatch({
+    type: ADD_PROJECT,
+  });
+
+  const data = sessionStorage.getItem("userInfo");
+  const authToken = JSON.parse(data)?.auth_token;
+
+  try {
+    const { data } = await Axios.get(`${BASE_URL}`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    dispatch({
+      type: ADD_PROJECT_SUCCESSFUL,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADD_PROJECT_FAILED,
+      payload:
+        error.response && error.response.data[0]
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const createNewSubProject = ({id, name}) => async (dispatch) => {
+  dispatch({
+    type: ADD_SUB_PROJECT,
+  });
+
+  const data = sessionStorage.getItem("userInfo");
+  const authToken = JSON.parse(data)?.auth_token;
+
+  try {
+    const { data } = await Axios.get(`${BASE_URL}`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    dispatch({
+      type: ADD_SUB_PROJECT_SUCCESSFUL,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADD_SUB_PROJECT_FAILED,
+      payload:
+        error.response && error.response.data[0]
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+
+
+export const createNewDpArea = ({id, name}) => async (dispatch) => {
+  dispatch({
+    type: ADD_DP_AREA,
+  });
+
+  const data = sessionStorage.getItem("userInfo");
+  const authToken = JSON.parse(data)?.auth_token;
+
+  try {
+    const { data } = await Axios.get(`${BASE_URL}`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    dispatch({
+      type: ADD_DP_AREA_SUCCESSFUL,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADD_DP_AREA_FAILED,
       payload:
         error.response && error.response.data[0]
           ? error.response.data.message
