@@ -16,7 +16,12 @@ const DpAreas = () => {
   const data = location?.pathname?.split('/')[4]
   const {  areas, loading } = useSelector((state) => state?.listDpAreas);
 
-
+  useEffect(() => {
+    if (areas) {
+      dispatch(fetchDpPictures(areas[0]?.id))
+    }
+    
+  }, [])
   useEffect(() => {
       dispatch(fetchDpAreas(data));
   }, [data, dispatch]);
@@ -25,7 +30,6 @@ const DpAreas = () => {
     setShowDetails(true)
     setPictureId(id)
     dispatch(fetchDpPictures(id))
-    console.log('called')
   }
 
 
@@ -59,7 +63,6 @@ const DpAreas = () => {
     });
 
  }
-console.log(areas)
   return (
     <div className="flex flex-col gap-[4%] py-8 px-[20px] h-[100%]">
  <Breadcrumb />
