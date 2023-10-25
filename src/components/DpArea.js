@@ -21,19 +21,17 @@ const DpArea = () => {
   };
 
 
-  // console.log(
-
   return (
     <div className="border pb-4 font-roboto h-[100%] w-[30%] bg-white shadow-xl rounded-2xl">
       <h1 className="h-[15%] w-[100%] flex items-center justify-center text-2xl font-[400]">
-        Dp Areas
+        DP areas
       </h1>
       {loading ? (
         <div className="flex-1 flex justify-center">
           <CircularProgress />
         </div>
       ) : dpAreas.length > 0 ? (
-        <div>
+        <div className="scroll-smooth overflow-y-scroll h-[85%]">
           {dpAreas?.map((areas) => (
             <div
               key={areas.id}
@@ -49,7 +47,7 @@ const DpArea = () => {
         </div>
       ) : (
         <div className="flex-1 text-center">
-          <h1>This sub project has no dp area, add one to get started.</h1>
+          <h1 className="sans">This sub-project has no DP areas, add one to get started</h1>
         </div>
       )}
     </div>

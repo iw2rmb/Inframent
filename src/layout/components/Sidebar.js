@@ -26,16 +26,32 @@ const Sidebar = ({setToggleOpen}) => {
         }
     ]
 
-    const handleLogOut = () => {
-      sessionStorage.clear()
+
+  const handleLogOut = () => {
+    sessionStorage.clear();
+  };
+
+  useEffect(() => {
+    setToggleOpen(showSlide);
+  }, [showSlide, setToggleOpen]);
+
+  useEffect(() => {
+    // Get the sidebar state from local storage.
+    const localStorageSidebarState = localStorage.getItem('sidebarIsOpen');
+    if (localStorageSidebarState) {
+      setShowSlide(JSON.parse(localStorageSidebarState));
     }
-    useEffect(() => {
-      setToggleOpen(showSlide)
-    }, [showSlide, setToggleOpen])
+  }, []);
+
+  useEffect(() => {
+    // Update local storage with the sidebar state.
+    localStorage.setItem('sidebarIsOpen', JSON.stringify(showSlide));
+  }, [showSlide]);
+
 
     
   return (
-    <div className={`h-[100%] fixed ${!showSlide ? 'slide-out-in ' : 'slide-in'} py-8 w-fit bg-[#D9E2FF] flex flex-col justify-between`}>
+    <div className={`h-[100vh] top-0 fixed ${!showSlide ? 'slide-out-in ' : 'slide-in'} py-8 w-fit bg-[#D9E2FF] flex flex-col justify-between`}>
       <div className='flex flex-col items-center'>
         <Link to="/projects" className='flex justify-center'>
         <img src="/assets/inframent-logo.png" alt="inframent web app logo icon" className={`bg-white cursor-pointer rounded-full drop-shadow-lg w-[80%] max-w-[120px]`}/>
@@ -60,7 +76,7 @@ const Sidebar = ({setToggleOpen}) => {
         <div className='flex flex-row'>
             <h1 className='bg-red-200 px-5 py-3 font-bold rounded-full cursor-pointer' onClick={() => setShowOptions(!showOptions)}>T</h1>
             {
-              showOptions && <Link to="/login" className='absolute mt-2 flex flex-row items-center gap-2 p-2 text-red-500 border bg-gray-200 drop-shadow-xl w-fit ml-[4rem]' onClick={handleLogOut}>
+              showOptions && <Link to="/login" className='fixed mt-2 flex flex-row items-center gap-2 p-2 text-red-500 border bg-gray-200 drop-shadow-xl w-fit ml-[4rem]' onClick={handleLogOut}>
                 <FiLogOut className='text-[22px]' />
                 <p>Log Out</p>
             </Link>

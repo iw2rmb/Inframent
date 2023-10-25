@@ -14,15 +14,22 @@ const Layout = ({children}) => {
         return ;
       } 
       else if (
+        location.pathname.split('/')[location.pathname.split('/').length - 1] === 'map'
+      ) {
+        navigate('/map')
+      }
+
+      else if (
         location.pathname.split('/').length === 2
       ) {
         navigate("/projects");
+        return
       }
-    }, [data, navigate, location.pathname]);
+    }, [data]);
   return (
     <>
       {
-        data && <div className='w-screen h-screen flex flex-row'>
+        data && <div className='w-screen h-[100vh] flex flex-row'>
       <div className={`${!toggleOpen ? 'slide-out-in' : 'slide-in '} h-[100vh]`}>
         <Sidebar setToggleOpen={setToggleOpen}/>
       </div>

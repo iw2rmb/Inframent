@@ -17,6 +17,34 @@
     font-family: 'Roboto', sans-serif;
   }
 
-  .backdrop{
-    background-color: rgba(51, 50, 50, 0.1);
+  .backdrop-filter{
+    background-color: rgba(90, 90, 90, 0.1);
   }
+
+
+
+
+  /* Hide scrollbars in WebKit-based browsers */
+/* You can add similar styles for other browser engines if needed */
+
+/* Hide the main scrollbar track */
+::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+/* Hide the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+/* Hide the scrollbar track when hovering over it */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Set the container with overflow scroll */
+.scroll-container {
+  width: 300px;
+  overflow: scroll;
+}
+
