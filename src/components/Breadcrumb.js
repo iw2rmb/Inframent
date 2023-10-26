@@ -14,12 +14,15 @@ const Breadcrumb = () => {
     if (picture) {
  setLinks([
     `${picture?.dp_area?.pop_area?.city_area?.name}`,
+    `${picture?.dp_area?.pop_area?.name}`,
     `${picture?.dp_area?.name}`,
-    `${picture?.dp_area?.pop_area?.name}`
+    
   ]);
 
     }
   }, [picture])
+
+  // console.log(picture)
 
   const paths = location.pathname
     .split('/')

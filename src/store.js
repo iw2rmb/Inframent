@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   deleteDpArea: deleteDpArea,
   addProject: createNewProject,
   addNewSubProject: createNewSubProject,
-  addNewDpArea: createNewDpArea
+  addNewDpArea: createNewDpArea,
 
 });
 

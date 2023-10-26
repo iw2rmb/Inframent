@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { IoMdArrowDropright } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDP } from "../action/projects";
@@ -15,13 +15,40 @@ const DpArea = () => {
 
   const selectedSubProjectId = location?.pathname.split("/")[3];
   const { loading, dpAreas } = useSelector((state) => state?.listPopAreas);
+  const addNewDpArea = useSelector((state) => state?.addNewDpArea)
 
   useEffect(() => {
     dispatch(fetchDP(selectedSubProjectId));
   }, [dispatch, selectedSubProjectId]);
 
+
+
+
   const handleNavigate = (id) => {
     navigate(`${location.pathname}/${id}`);
+  };
+
+
+
+  const containerRef = useRef(null);
+
+  // Function to scroll to the bottom
+  // const scrollToBottom = () => {
+  //   if (containerRef.current) {
+  //     containerRef.current.scrollTop = containerRef.current.scrollHeight;
+  //   }
+  // };
+
+
+  const scrollToBottom = () => {
+    if (containerRef.current) {
+      console.log('scrollTop before:', containerRef.current.scrollTop);
+      console.log('scrollHeight:', containerRef.current.scrollHeight);
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+      console.log('scrollTop after:', containerRef.current.scrollTop);
+    } else {
+      console.log('none')
+    }
   };
 
 
@@ -35,7 +62,8 @@ const DpArea = () => {
           <CircularProgress />
         </div>
       ) : dpAreas.length > 0 ? (
-        <div className="scroll-smooth overflow-y-scroll h-[85%]">
+        <div className="scroll-smooth overflow-y-scroll h-[85%]" ref={containerRef}>
+                <div className='h-fit overflow-y-scroll' >
           {dpAreas?.map((areas) => (
             <div
               key={areas.id}
@@ -48,6 +76,7 @@ const DpArea = () => {
               <IoMdArrowDropright className="text-2xl" />
             </div>
           ))}
+          </div>
         </div>
       ) : (
         <div className="flex-1 text-center">
@@ -58,7 +87,7 @@ const DpArea = () => {
 
 
 <button className='absolute bottom-[2rem] right-[2rem] border cursor-pointer bg-[#E9E7EC] px-[2rem] py-[1.25rem] font-roboto flex flex-row gap-[1.5rem] items-center rounded-2xl text-blue-600 shadow-xl'  onClick={() => setShowModal(true)}><AiOutlineFolderAdd className='text-blue-700 text-2xl'/> Add DP area</button>
-<BasicModal type="DP area" setShowModal={setShowModal} showModal={showModal}/>
+<BasicModal type="DP area" setShowModal={setShowModal} showModal={showModal} scrollToBottom={scrollToBottom}/>
     </div>
   );
 };

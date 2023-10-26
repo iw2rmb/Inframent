@@ -19,9 +19,10 @@ const DpAreas = () => {
   useEffect(() => {
     if (areas) {
       dispatch(fetchDpPictures(areas[0]?.id))
+      // console.log('called')
     }
     
-  }, [])
+  }, [areas])
   useEffect(() => {
       dispatch(fetchDpAreas(data));
   }, [data, dispatch]);
@@ -81,7 +82,9 @@ const DpAreas = () => {
                 <div className="flex flex-col w-[70%]">
                   <h1 className="text-[16px] font-mono">{area?.created_at_local}</h1>
                   
-                  <button className="border rounded-lg shadow-md cursor-not-allowed text-[15px] border-gray-400 p-1 w-fit">To inspect</button>
+                  <p className="text-[15px] mt-1.5 border bg-gray-100 px-5 rounded-md py-2 w-fit shadow-md">
+                  Inspect
+                </p>
                 </div>
                 {
                   area?.updated_by?.profile_picture ? <img src={area?.updated_by?.profile_picture} alt="profile picture" className="w-20 h-10 rounded-full"/> : <p className="bg-yellow-600 w-10 h-10 uppercase rounded-full flex items-center justify-center"><span>{area?.created_by?.username.slice(0, 2)}</span></p>

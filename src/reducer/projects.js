@@ -28,7 +28,8 @@ import {
   ADD_DP_AREA_FAILED,
   ADD_SUB_PROJECT,
   ADD_SUB_PROJECT_SUCCESSFUL,
-  ADD_SUB_PROJECT_FAILED
+  ADD_SUB_PROJECT_FAILED,
+  RESET_FORM
 } from "../constant/products";
 
 export const fetchProjectsReducer = (
@@ -191,7 +192,7 @@ export const deleteDpArea = (
 
 
 export const createNewProject = (
-  state = {loading: false, projectStatus: null}, action
+  state = {loading: false, projectStatus: false}, action
 ) => {
   switch (action.type) {
     case ADD_PROJECT:
@@ -206,6 +207,10 @@ export const createNewProject = (
       return {
         loading: false
       }
+      case RESET_FORM:
+        return {
+          projectStatus: false
+        }
     default: return state
   }
 }
@@ -215,7 +220,7 @@ export const createNewProject = (
 
 
 export const createNewSubProject = (
-  state = {loading: false, subProjectStatus: null}, action
+  state = {loading: false, subProjectStatus: false}, action
 ) => {
   switch (action.type) {
     case ADD_SUB_PROJECT:
@@ -230,6 +235,10 @@ export const createNewSubProject = (
       return {
         loading: false
       }
+      case RESET_FORM:
+        return {
+          subProjectStatus: false,
+        }
     default: return state
   }
 }
@@ -237,7 +246,7 @@ export const createNewSubProject = (
 
 
 export const createNewDpArea = (
-  state = {loading: false, dpAreaStatus: null}, action
+  state = {loading: false, dpAreaStatus: false}, action
 ) => {
   switch (action.type) {
     case ADD_DP_AREA:
@@ -251,6 +260,10 @@ export const createNewDpArea = (
     case ADD_DP_AREA_FAILED:
       return {
         loading: false
+      }
+    case RESET_FORM:
+      return {
+        dpAreaStatus: false,
       }
     default: return state
   }

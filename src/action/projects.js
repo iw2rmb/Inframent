@@ -29,7 +29,8 @@ import {
   ADD_DP_AREA_FAILED,
   ADD_SUB_PROJECT,
   ADD_SUB_PROJECT_SUCCESSFUL,
-  ADD_SUB_PROJECT_FAILED
+  ADD_SUB_PROJECT_FAILED,
+  RESET_FORM
 } from "../constant/products";
 import { toast } from "react-toastify";
 
@@ -280,16 +281,18 @@ export const deleteDpArea = (id, categoryName, dpNote, depth) => async (dispatch
 
 
 
-export const createNewProject = ({id, name}) => async (dispatch) => {
+export const createNewProject = ({userId, value}) => async (dispatch) => {
   dispatch({
     type: ADD_PROJECT,
   });
 
   const data = sessionStorage.getItem("userInfo");
   const authToken = JSON.parse(data)?.auth_token;
-
   try {
-    const { data } = await Axios.get(`${BASE_URL}/api/projects/${id}/add`, {
+    const { data } = await Axios.post(`${BASE_URL}/projects/city/add`, {
+      "name": value,
+      "created_by": userId
+    }, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -300,6 +303,17 @@ export const createNewProject = ({id, name}) => async (dispatch) => {
       type: ADD_PROJECT_SUCCESSFUL,
       payload: data,
     });
+    toast.success('Project created successfully', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
   } catch (error) {
     dispatch({
       type: ADD_PROJECT_FAILED,
@@ -325,7 +339,7 @@ export const createNewProject = ({id, name}) => async (dispatch) => {
 
 
 
-export const createNewSubProject = ({id, name}) => async (dispatch) => {
+export const createNewSubProject = ({value, projectId, userId}) => async (dispatch) => {
   dispatch({
     type: ADD_SUB_PROJECT,
   });
@@ -334,7 +348,9 @@ export const createNewSubProject = ({id, name}) => async (dispatch) => {
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.get(`${BASE_URL}/api/pop-areas/${id}/add`, {
+    const { data } = await Axios.post(`${BASE_URL}/projects/${projectId}/add`, {
+      "name": value,
+    }, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -345,6 +361,17 @@ export const createNewSubProject = ({id, name}) => async (dispatch) => {
       type: ADD_SUB_PROJECT_SUCCESSFUL,
       payload: data,
     });
+    toast.success('Sub-project created successfully', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
   } catch (error) {
     dispatch({
       type: ADD_SUB_PROJECT_FAILED,
@@ -359,7 +386,7 @@ export const createNewSubProject = ({id, name}) => async (dispatch) => {
 
 
 
-export const createNewDpArea = ({id, name}) => async (dispatch) => {
+export const createNewDpArea = ({subProjectId, value, userId}) => async (dispatch) => {
   dispatch({
     type: ADD_DP_AREA,
   });
@@ -368,7 +395,10 @@ export const createNewDpArea = ({id, name}) => async (dispatch) => {
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.get(`${BASE_URL}`, {
+    const { data } = await Axios.post(`${BASE_URL}/projects/pop-areas/${subProjectId}/add`,  {
+      "name": value,
+      "created_by": userId
+    },{
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -379,6 +409,18 @@ export const createNewDpArea = ({id, name}) => async (dispatch) => {
       type: ADD_DP_AREA_SUCCESSFUL,
       payload: data,
     });
+
+    toast.success('DP area created successfully', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
   } catch (error) {
     dispatch({
       type: ADD_DP_AREA_FAILED,
@@ -389,3 +431,10 @@ export const createNewDpArea = ({id, name}) => async (dispatch) => {
     });
   }
 };
+
+
+export const resetForm = () => async (dispatch) => {
+  dispatch({
+    type: RESET_FORM
+  })
+}

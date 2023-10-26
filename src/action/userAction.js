@@ -29,6 +29,7 @@ export const signin = (email, password) => async (dispatch) => {
 
     // Saving the auth token to session storage
     sessionStorage.setItem("userInfo", JSON.stringify(data));
+    console.log(data)
   } catch (error) {
     dispatch({
       type: REQUEST_LOGIN_FAILED,

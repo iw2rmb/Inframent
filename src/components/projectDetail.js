@@ -83,25 +83,25 @@ const ProjectDetail = ({ setShowDetails, id }) => {
       ) : !data ? (
         ""
       ) : (
-        <div className="bg-white z-10 rounded-xl w-[70rem] h-[80vh] gap-12 flex flex-row py-8 px-12 font-roboto">
+        <div className="bg-white z-10 rounded-xl w-[70rem] h-auto gap-12 flex flex-row py-8 px-12 font-roboto">
           <div className="w-[65%] flex flex-col justify-between">
-            <p className="text-2xl font-roboto">Picture details</p>
+            <p className="text-2xl font-roboto mb-[3rem]">Picture details</p>
             <img
               src={data?.dp_image ? data?.dp_image : data?.thumbnail_image}
               alt={data?.dp_image}
-              className="w-[100%] h-[90%] rounded-md"
+              className="w-auto h-auto rounded-md"
             />
           </div>
 
-          <div className="flex flex-col justify- h-[100%] w-[40%] relative">
-            <div className="mb-8 w-[100%] flex justify-end h-fit">
+          <div className="flex flex-col flex-1 justify- h-[509px] relative">
+            <div className="mb-8 w-[100%] flex justify-end ">
               <AiOutlineClose
                 className="text-xl text-blue-600 cursor-pointer"
                 onClick={() => setShowDetails(false)}
               />
             </div>
             <div className="p-4 ">
-              <div className="overflow-scroll scroll-smooth h-[85.5%]">
+              <div className="overflow-scroll scroll-smooth h-[72.5%]">
                 <p className="text-[16px] font-semibold">Location</p>
                 <div className="flex flex-row justify-between mt-1.5">
                   <div className="flex flex-row gap-2">

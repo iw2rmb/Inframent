@@ -65,7 +65,7 @@ function App() {
   const router = createBrowserRouter(createRoutesFromElements(routes));
 
   return (
-    <div className="App">
+    <div className="App overflow-x-hidden">
       <ToastContainer />
       <RouterProvider router={router} />
     </div>

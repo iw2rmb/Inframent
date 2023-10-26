@@ -29,22 +29,24 @@
 
 /* Hide the main scrollbar track */
 ::-webkit-scrollbar {
-  width: 0.5em;
+  width: 0.15em;
+  /* border: 1px solid red; */
+  background-color: white;
 }
 
 /* Hide the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
-  background-color: transparent;
+  background-color: rgb(138, 137, 137);
 }
 
 /* Hide the scrollbar track when hovering over it */
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
   background-color: transparent;
-}
+} */
 
 /* Set the container with overflow scroll */
 .scroll-container {
-  width: 300px;
+  /* width: 300px; */
   overflow: scroll;
 }
 
