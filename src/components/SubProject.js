@@ -24,10 +24,6 @@ const handleNavigate = (id) => {
   navigate(`/projects/${selectedProjectId}/${id}`)
 }
 
-// const paths = location.pathname
-// .split('/')
-// .filter((path) => path !== '')
-// .slice(1);
 
   useEffect(() => {
     if (subProjects) {
@@ -36,12 +32,6 @@ const handleNavigate = (id) => {
     
   }, [subProjects])
 
-//   useEffect(() => {
-//     if(addNewSubProject?.subProjectStatus) {
-//       navigate(`/projects/${selectedProjectId}`)
-//     } 
-    
-// }, [addNewSubProject, addNewDpArea])
 
   useEffect(() => {
       dispatch(fetchSubProjects(selectedProjectId))
@@ -58,30 +48,17 @@ const handleNavigate = (id) => {
 
 const containerRef = useRef(null);
 
-// Function to scroll to the bottom
-// const scrollToBottom = () => {
-//   if (containerRef.current) {
-//     containerRef.current.scrollTop = containerRef.current.scrollHeight;
-//   }
-// };
-
 
 const scrollToBottom = () => {
   if (containerRef.current) {
-    console.log('scrollTop before:', containerRef.current.scrollTop);
-    console.log('scrollHeight:', containerRef.current.scrollHeight);
-    containerRef.current.scrollTop = containerRef.current.scrollHeight;
-    console.log('scrollTop after:', containerRef.current.scrollTop);
   } else {
-    console.log('none')
   }
 };
 
 
 
-
   return (
-    <div className='border pb-4 h-[100%] relative bg-white w-[30%] shadow-xl rounded-2xl'>
+    <div className='border pb-4 h-[100%] relative bg-white w-[33%] shadow-xl rounded-2xl'>
       <h1 className='h-[15%] font-roboto w-[100%] flex items-center justify-center text-2xl font-[400]'>Sub-projects</h1>
       {
       loading ? <div className='flex-1 flex justify-center'>
@@ -100,8 +77,8 @@ const scrollToBottom = () => {
           )
       }
       </div>
-    </div>: <div className='flex-1 text-center'>
-      <h1 className='sans'>This project has no sub-project, add one to get started.</h1>
+    </div>: <div className='flex-1 flex h-[80%] text-center justify-center items-center'>
+      <h1 className='sans'>This project has no sub-project, <br /> add one to get started.</h1>
     </div>
     }
 

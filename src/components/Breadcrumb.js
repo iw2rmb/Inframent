@@ -8,7 +8,7 @@ const Breadcrumb = () => {
   const [links, setLinks] = useState([])
   
 
-  const { loading, picture } = useSelector((state) => state?.dpPicture);
+  const { picture } = useSelector((state) => state?.dpPicture);
 
   useEffect(() => {
     if (picture) {
@@ -22,7 +22,6 @@ const Breadcrumb = () => {
     }
   }, [picture])
 
-  // console.log(picture)
 
   const paths = location.pathname
     .split('/')
@@ -41,7 +40,7 @@ const Breadcrumb = () => {
             className='font-mono'
             onClick={() => navigate(`/projects/${paths.slice(0, index + 1).join('/')}`)}
           >
-            {links[index]}
+            {path}
           </p>
           {index < paths.length - 1 && (
             <IoIosArrowForward className='text-blue-600 text-[20px]' />

@@ -1,7 +1,7 @@
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 
-import { signinReducer } from "./reducer/userReducer";
+import { signinReducer, getUserDetails } from "./reducer/userReducer";
 import { fetchProjectsReducer, fetchSubProjectsReducer, fetchPopArea, fetchDpAreas, fetchDpPictures, fetchAllDpPictures, deleteDpArea, createNewProject, createNewSubProject, createNewDpArea } from "./reducer/projects";
 const rootReducer = combineReducers({
   userSignin: signinReducer,
@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
   addProject: createNewProject,
   addNewSubProject: createNewSubProject,
   addNewDpArea: createNewDpArea,
+  userDetail: getUserDetails
 
 });
 

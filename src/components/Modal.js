@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useSelector, useDispatch} from 'react-redux'
 import {AiOutlineClose} from 'react-icons/ai';
@@ -12,16 +10,12 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  // width: 400,
-  // bgcolor: 'background.paper',
   boxShadow: 24,
-//   p: 4,
 };
 
 export default function BasicModal({type, setShowModal, showModal, scrollToBottom}) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState("")
   const [projectId, setProjectId] = useState('')
   const [subProjectId, setsubProjectId] = useState('')
@@ -37,52 +31,43 @@ export default function BasicModal({type, setShowModal, showModal, scrollToBotto
   
   const data = sessionStorage.getItem("userInfo");
   const userId = JSON.parse(data)?.user_id;
-  // console.log(userId)
   const paths = location.pathname
     .split('/')
     .filter((path) => path !== '')
     .slice(1);
-  // console.log(paths)
 
 
 
     useEffect(() => {
-      if (addNewProject?.projectStatus) {
-        navigate('/projects')
+      if (addNewProject?.projectData?.project_id) {
+        navigate(`/projects/${addNewProject?.projectData?.project_id}`)
         setValue("")
         handleClose()
         dispatch(fetchProjects())
         dispatch(resetForm())
         scrollToBottom()
       }
-      else if (addNewSubProject?.subProjectStatus === "successful" ) {
+      else if (addNewSubProject?.subProjectData?.id) {
         setValue("")
         handleClose()
-        // navigate(`/projects/${paths[0]}`)
+        navigate(`/projects/${paths[0]}/${addNewSubProject?.subProjectData?.id}`)
         dispatch(fetchSubProjects(paths[0]))
         dispatch(resetForm())
-        console.log(paths[0])
 
       }
-      else if(addNewDpArea?.dpAreaStatus === "successful" ) {
+      else if(addNewDpArea?.dpAreaData?.name) {
         setValue("")
         handleClose()
-        // navigate(location.pathname)
+        navigate(location.pathname)
         dispatch(fetchDP(paths[1]))
         dispatch(resetForm())
-        console.log('dp added')
       }
 
-      // ||  || addNewSubProject?.subProjectStatus
-    }, [addNewProject, addNewSubProject, addNewDpArea])
-    console.log(addNewDpArea)
-    console.log(addNewProject)
+    }, [addNewProject, addNewSubProject, addNewDpArea, dispatch, scrollToBottom, handleClose, location, navigate, paths])
     useEffect(() => {
       if(paths.length === 1) {
-      // console.log(paths[0])
       setProjectId(paths[0])
       } else if(paths.length === 2) {
-        // console.log(paths[1])
         setsubProjectId(paths[1])
         }
     }, [paths])
@@ -91,32 +76,24 @@ export default function BasicModal({type, setShowModal, showModal, scrollToBotto
 
   const handleSubmit = () => {
     if (type === "Project") {
-      console.log('submit project')
       dispatch(createNewProject({userId, value}))
-      console.log(userId, value)
       
     } else if (type === "sub-project") {
       dispatch(createNewSubProject({projectId, value, userId}))
-      console.log('submit sub project')
     } else {
       dispatch(createNewDpArea({subProjectId, value, userId}))
-      console.log('submit dp area')
     }
     
   }
 
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
         open={showModal}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        {/* <div className='absolute w-[100vw] h-[100vh] flex justify-center items-center'>
-           
-        </div> */}
 
 
 <Box sx={style}>
@@ -126,7 +103,11 @@ export default function BasicModal({type, setShowModal, showModal, scrollToBotto
             </div>
         
         <h1 className='font-roboto text-2xl text-center'>Add {type}</h1>
-        <input placeholder={`${type} name`} value={value} onChange={(e) => setValue(e.target.value)} className='border outline-none font-roboto bg-gray-200 px-2 py-3'/>
+        <div className='flex flex-col bg-gray-200 px-2 py-1'>
+          <label className='font-roboto text-[14px]'>{`${type} name`}</label>
+        <input  value={value} onChange={(e) => setValue(e.target.value)} className='border outline-none font-roboto bg-gray-200 text-[20px]'/>
+        </div>
+
         <div className='text-[18px] font-roboto flex flex-row justify-end gap-[4rem]'>
         <button className='text-red-600' onClick={handleClose}>Cancel</button>
           <button className={`${value === "" ? "text-gray-500" : "text-blue-600"}`} disabled={value === ""} onClick={handleSubmit}>Add</button>

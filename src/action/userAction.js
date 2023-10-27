@@ -4,6 +4,9 @@ import {
   REQUEST_LOGIN,
   REQUEST_LOGIN_SUCCESSFUL,
   REQUEST_LOGIN_FAILED,
+  GET_USER_PROFILE,
+  GET_USER_PROFILE_SUCCESSFUL,
+  GET_USER_PROFILE_FAILED
 } from "../constant/userConstant";
 
 
@@ -29,7 +32,6 @@ export const signin = (email, password) => async (dispatch) => {
 
     // Saving the auth token to session storage
     sessionStorage.setItem("userInfo", JSON.stringify(data));
-    console.log(data)
   } catch (error) {
     dispatch({
       type: REQUEST_LOGIN_FAILED,
@@ -49,5 +51,40 @@ export const signin = (email, password) => async (dispatch) => {
         theme: "colored",
       }
     );
+  }
+};
+
+
+
+
+
+export const getUserDetail = (user_id) => async (dispatch) => {
+  dispatch({
+    type: GET_USER_PROFILE,
+  });
+
+  const data = sessionStorage.getItem("userInfo");
+  const authToken = JSON.parse(data)?.auth_token;
+
+  try {
+    const { data } = await Axios.get(`${BASE_URL}/getuserdetail/${user_id}/`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    dispatch({
+      type: GET_USER_PROFILE_SUCCESSFUL,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_USER_PROFILE_FAILED,
+      payload:
+        error.response && error.response.data[0]
+          ? error.response.data.message
+          : error.message,
+    });
   }
 };

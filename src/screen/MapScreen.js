@@ -22,6 +22,7 @@ const MapScreen = () => {
   const MAPTILER_API_KEY = "CcOATuikfYaYqcmMIpGp";
 
   const dpPicture = useSelector((state) => state?.dpPictures);
+  console.log(dpPicture)
 
   const { dpPictures } = dpPicture;
 
@@ -42,7 +43,7 @@ const MapScreen = () => {
   }, [showDetails]);
 
   const getMapStyleURL = () => {
-    if (isSatelliteView) {
+    if (!isSatelliteView) {
       return `https://api.maptiler.com/maps/satellite/style.json?key=CcOATuikfYaYqcmMIpGp`;
     }
     return `https://api.maptiler.com/maps/2bc77a95-9f4a-4b6d-ad3a-d6ce6fb43b2f/style.json?key=CcOATuikfYaYqcmMIpGp`;

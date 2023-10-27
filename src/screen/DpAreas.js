@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Breadcrumb from "../components/Breadcrumb";
-import { fetchDpAreas, fetchDpPictures } from "../action/projects";
+import { fetchDpAreas, fetchDpPictures, resetForm } from "../action/projects";
 import { useSelector, useDispatch } from "react-redux";
 import { CircularProgress } from "@mui/material";
 import {MdOutlineContentCopy} from 'react-icons/md'
 import ProjectDetail from "../components/projectDetail";
 import { toast } from "react-toastify";
 import copy from 'clipboard-copy';
+import getColorByAlphabet from "../components/getRandomColor";
 const DpAreas = () => {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -15,17 +16,33 @@ const DpAreas = () => {
   const [pictureId, setPictureId] = useState(null)
   const data = location?.pathname?.split('/')[4]
   const {  areas, loading } = useSelector((state) => state?.listDpAreas);
+  const deleteDp = useSelector((state) => state?.deleteDpArea)
 
+  const {subProjects} = useSelector((state) => state?.listSubProjects)
+
+  console.log(subProjects)
   useEffect(() => {
     if (areas) {
       dispatch(fetchDpPictures(areas[0]?.id))
-      // console.log('called')
     }
     
   }, [areas])
+
   useEffect(() => {
       dispatch(fetchDpAreas(data));
   }, [data, dispatch]);
+
+
+  useEffect(() => {
+    if(deleteDp?.status) {
+      dispatch(resetForm())
+      dispatch(fetchDpAreas(data));
+      console.log('called')
+    }
+    
+}, [deleteDp, dispatch]);
+
+
 
   const handleShowPicture = (id) => {
     setShowDetails(true)
@@ -64,6 +81,9 @@ const DpAreas = () => {
     });
 
  }
+
+
+ console.log(areas)
   return (
     <div className="flex flex-col gap-[4%] py-8 px-[20px] h-[100%]">
  <Breadcrumb />
@@ -87,7 +107,7 @@ const DpAreas = () => {
                 </p>
                 </div>
                 {
-                  area?.updated_by?.profile_picture ? <img src={area?.updated_by?.profile_picture} alt="profile picture" className="w-20 h-10 rounded-full"/> : <p className="bg-yellow-600 w-10 h-10 uppercase rounded-full flex items-center justify-center"><span>{area?.created_by?.username.slice(0, 2)}</span></p>
+                  area?.updated_by?.profile_picture ? <img src={area?.updated_by?.profile_picture} alt="profile picture" className="w-20 h-10 rounded-full"/> : <p   style={{backgroundColor: getColorByAlphabet(area?.created_by?.username.slice(0, 1))}} className=" w-10 h-10 uppercase rounded-full flex items-center justify-center"><span>{area?.created_by?.username.slice(0, 2)}</span></p>
                 }
 
               </div>
@@ -102,7 +122,7 @@ const DpAreas = () => {
             <h1 className="text-[16px] font-semibold mt-3">Note</h1>
             <p className="mt-1.5 text-[15px]">{area?.dp_note ? area?.dp_note?.slice(0, 65)   : 'No note'}</p>
             <h1 className="text-[16px] font-semibold mt-2">Depth</h1>
-            <p className="text-[15px]">{area?.depth ? area?.depth : "No depth information"}cm</p>
+            <p className="text-[15px]">{area?.depth ? area?.depth + "cm" : "No depth information"}</p>
             <div className="mt-8 flex flex-1 justify-end">
               <button className="text-blue-700 cursor-pointer" onClick={() => handleShowPicture(area?.id)}>Full details</button>
             </div>

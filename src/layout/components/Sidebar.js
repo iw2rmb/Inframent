@@ -3,10 +3,12 @@ import {AiOutlineFolder} from 'react-icons/ai';
 import {FiMap, FiLogOut} from 'react-icons/fi'
 import { Link, useLocation } from 'react-router-dom';
 import {MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight} from 'react-icons/md';
-
+import { useSelector, useDispatch } from 'react-redux';
+import getColorByAlphabet from '../../components/getRandomColor';
 
 const Sidebar = ({setToggleOpen}) => {
   const location = useLocation()
+  const dispatch = useDispatch()
   const pathname = location.pathname.split('/')
     const [showSlide, setShowSlide] = useState(false);
     const [showOptions, setShowOptions] = useState(false)
@@ -25,6 +27,8 @@ const Sidebar = ({setToggleOpen}) => {
             icon: <FiMap />
         }
     ]
+
+    const userDetail = useSelector((state) => state?.userDetail)
 
 
   const handleLogOut = () => {
@@ -74,7 +78,9 @@ const Sidebar = ({setToggleOpen}) => {
       </div>
       <div className='flex flex-col gap-4 items-center justify-center'>
         <div className='flex flex-row'>
-            <h1 className='bg-red-200 px-5 py-3 font-bold rounded-full cursor-pointer' onClick={() => setShowOptions(!showOptions)}>T</h1>
+            <h1 style={{ backgroundColor: getColorByAlphabet(userDetail?.details?.username ? userDetail?.details?.username[0] : 'a') }} className="px-5 py-3 font-bold rounded-full cursor-pointer" onClick={() => setShowOptions(!showOptions)}>
+  {userDetail?.details?.username ? userDetail?.details?.username[0] : ''}
+</h1>
             {
               showOptions && <Link to="/login" className='fixed mt-2 flex flex-row items-center gap-2 p-2 text-red-500 border bg-gray-200 drop-shadow-xl w-fit ml-[4rem]' onClick={handleLogOut}>
                 <FiLogOut className='text-[22px]' />

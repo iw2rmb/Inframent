@@ -186,13 +186,17 @@ export const deleteDpArea = (
       return {
         loading: false
       }
+      case RESET_FORM:
+        return {
+          status: false
+        }
     default: return state
   }
 }
 
 
 export const createNewProject = (
-  state = {loading: false, projectStatus: false}, action
+  state = {loading: false, projectData: []}, action
 ) => {
   switch (action.type) {
     case ADD_PROJECT:
@@ -201,7 +205,7 @@ export const createNewProject = (
       };
     case ADD_PROJECT_SUCCESSFUL:
       return {
-        loading: false, projectStatus: 'successful'
+        loading: false, projectData: action?.payload
       }
     case ADD_PROJECT_FAILED:
       return {
@@ -209,7 +213,7 @@ export const createNewProject = (
       }
       case RESET_FORM:
         return {
-          projectStatus: false
+          projectData: []
         }
     default: return state
   }
@@ -220,7 +224,7 @@ export const createNewProject = (
 
 
 export const createNewSubProject = (
-  state = {loading: false, subProjectStatus: false}, action
+  state = {loading: false, subProjectData: []}, action
 ) => {
   switch (action.type) {
     case ADD_SUB_PROJECT:
@@ -229,7 +233,7 @@ export const createNewSubProject = (
       };
     case ADD_SUB_PROJECT_SUCCESSFUL:
       return {
-        loading: false, subProjectStatus: 'successful'
+        loading: false, subProjectData: action?.payload
       }
     case ADD_SUB_PROJECT_FAILED:
       return {
@@ -237,7 +241,7 @@ export const createNewSubProject = (
       }
       case RESET_FORM:
         return {
-          subProjectStatus: false,
+          subProjectData: [],
         }
     default: return state
   }
@@ -246,7 +250,7 @@ export const createNewSubProject = (
 
 
 export const createNewDpArea = (
-  state = {loading: false, dpAreaStatus: false}, action
+  state = {loading: false, dpAreaData: []}, action
 ) => {
   switch (action.type) {
     case ADD_DP_AREA:
@@ -255,7 +259,7 @@ export const createNewDpArea = (
       };
     case ADD_DP_AREA_SUCCESSFUL:
       return {
-        loading: false, dpAreaStatus: 'successful'
+        loading: false, dpAreaData: action?.payload
       }
     case ADD_DP_AREA_FAILED:
       return {
@@ -263,7 +267,7 @@ export const createNewDpArea = (
       }
     case RESET_FORM:
       return {
-        dpAreaStatus: false,
+        dpAreaData: [],
       }
     default: return state
   }

@@ -27,12 +27,6 @@ if (projects) {
   }, [projects])
   const data = sessionStorage.getItem("userInfo");
 
-  // useEffect(() => {
-  //   if(addNewProject.projectStatus) {
-  //     dispatch(fetchProjects())
-  //     dispatch(resetForm())
-  //   }
-  // }, [addNewProject])
 
   useEffect(() => {
     if (data) {
@@ -46,13 +40,6 @@ if (projects) {
   }, [location])
 
   const containerRef = useRef(null);
-
-  // Function to scroll to the bottom
-  // const scrollToBottom = () => {
-  //   if (containerRef.current) {
-  //     containerRef.current.scrollTop = containerRef.current.scrollHeight;
-  //   }
-  // };
 
 
   const scrollToBottom = () => {
@@ -68,15 +55,13 @@ if (projects) {
 
 
   return (
-    <div className='pb-4 h-[100%] relative w-[30%] shadow-xl rounded-2xl bg-white' >
+    <div className='pb-4 h-[100%] relative w-[33%] shadow-xl rounded-2xl bg-white' >
       <h1 className='h-[15%] w-[100%] font-roboto flex items-center justify-center text-2xl font-[400]'>Projects</h1>
 
     {
       loading ? <div className='flex-1 flex justify-center'>
         <CircularProgress />
       </div>  : projectInfo?.length > 0 ? 
-      // <div className='h-[85%] overflow-y-scroll' >
-      //   <div className='h-fit overflow-y-scroll' ref={containerRef}>
       <div className='h-[85%] overflow-y-scroll' ref={containerRef}>
       <div className='h-fit overflow-y-scroll pb-[10rem]' >
 
@@ -97,8 +82,8 @@ if (projects) {
           )
       }
       </div>
-    </div> :  <div className='flex-1 text-center'>
-      <h1 className='font-roboto text-2xl'>There is no project.</h1>
+    </div> :  <div className='flex-1 flex h-[80%] text-center justify-center items-center'>
+      <h1 className='font-roboto text-2xl h-[80%] text-center'>So empty, add a <br /> project to get started</h1>
     </div>
     }
       

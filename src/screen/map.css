@@ -9,6 +9,8 @@
   bottom: 4rem;
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: auto;
+
 
 }
   .triangle {
@@ -23,3 +25,9 @@
     border-top: 20px solid white;
 
   }
+
+  .maplibregl-user-location-accuracy-circle  {
+    visibility: hidden;
+  }
+
+  /* .maplibregl-marker .maplibregl-marker-anchor-center */
