@@ -99,9 +99,9 @@ const DpAreas = () => {
       >
 
         {areas?.map((area) => (
-          <div key={area.id} className="flex flex-col border rounded-xl font-roboto">
+          <div key={area.id} className="flex flex-col border rounded-xl font-roboto lg:min-w-[20rem]">
             <div className="flex flex-row bg-gray-200 p-[8px] rounded-xl gap-[5%]">
-              <img src={area?.thumbnail_image} alt={area?.dp_image} className={`w-40 h-40 rounded-lg ${area?.thumbnail_image ? '' : 'bg-gray-600'}`}/>
+              <img src={area?.thumbnail_image} alt={area?.dp_image} className={`w-[10rem] h-40 rounded-lg ${area?.thumbnail_image ? '' : 'bg-gray-600'}`}/>
               <div className="flex flex-row flex-1 p-1 justify-between">
                 <div className="flex flex-col w-fit">
 
