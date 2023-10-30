@@ -21,7 +21,7 @@ const DpAreas = () => {
   const {subProjects} = useSelector((state) => state?.listSubProjects)
 
   useEffect(() => {
-    if (areas) {
+    if (areas && areas.length > 0) {
       dispatch(fetchDpPictures(areas[0]?.id))
     }
     
@@ -81,6 +81,13 @@ const DpAreas = () => {
  }
 
 
+ function formatDateTime(dateTimeString) {
+  const dateTime = new Date(dateTimeString);
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+  return dateTime.toLocaleString(undefined, options);
+}
+
+
   return (
     <div className="flex flex-col gap-[4%] py-8 px-[20px] h-[100%]">
  <Breadcrumb />
@@ -88,23 +95,29 @@ const DpAreas = () => {
         loading ? <div className='flex-1 flex justify-center h-[100vh] items-center'>
         <CircularProgress />
       </div> : areas?.length ? <div 
-      className="grid lg:grid-cols-4 mt-[6.5rem] gap-6 md:grid-cols-3 sm:grid-cols-1 scroll-smooth"
+      className="grid xl:grid-cols-4 lg:grid-cols-3 mt-[6.5rem] gap-6 md:grid-cols-2 sm:grid-cols-1 scroll-smooth"
       >
 
         {areas?.map((area) => (
           <div key={area.id} className="flex flex-col border rounded-xl font-roboto">
             <div className="flex flex-row bg-gray-200 p-[8px] rounded-xl gap-[5%]">
               <img src={area?.thumbnail_image} alt={area?.dp_image} className={`w-40 h-40 rounded-lg ${area?.thumbnail_image ? '' : 'bg-gray-600'}`}/>
-              <div className="flex flex-row flex-1 p-1 justify-between">
-                <div className="flex flex-col w-[70%]">
-                  <h1 className="text-[16px] font-mono">{area?.created_at_local}</h1>
+              <div className="flex flex-row flex-wrap flex-1 p-1 justify-between">
+                <div className="flex flex-col w-fit">
+
+                  <p className="text-[15px] w-24">
+                    { area?.created_at_utc? formatDateTime(area?.created_at_utc) : ''}
+                  </p>
+                  
+                    
+                  
                   
                   <p className="text-[15px] mt-1.5 border bg-gray-100 px-5 rounded-md py-2 w-fit shadow-md">
                   Inspect
                 </p>
                 </div>
                 {
-                  area?.updated_by?.profile_picture ? <img src={area?.updated_by?.profile_picture} alt="profile picture" className="w-20 h-10 rounded-full"/> : <p   style={{backgroundColor: getColorByAlphabet(area?.created_by?.username.slice(0, 1))}} className=" w-10 h-10 uppercase rounded-full flex items-center justify-center"><span>{area?.created_by?.username.slice(0, 2)}</span></p>
+                  area?.updated_by?.profile_picture ? <img src={area?.updated_by?.profile_picture} alt="profile picture" className="w-20 h-10 rounded-full"/> : <p   style={{backgroundColor: area?.created_by?.username ? getColorByAlphabet(area?.created_by?.username.slice(0, 1)) : '#e5e7eb'}} className=" w-10 h-10 uppercase rounded-full flex items-center justify-center"><span>{area?.created_by?.username.slice(0, 2)}</span></p>
                 }
 
               </div>
@@ -125,7 +138,7 @@ const DpAreas = () => {
             </div>
             </div>
             {
-        showDetails && areas && <ProjectDetail setShowDetails={setShowDetails} id={pictureId}/>
+        showDetails && areas && <ProjectDetail setShowDetails={setShowDetails} id={pictureId} showDetails={showDetails}/>
       }
           </div>
         ))}

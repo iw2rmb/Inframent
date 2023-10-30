@@ -78,6 +78,7 @@ export const getUserDetail = (user_id) => async (dispatch) => {
       type: GET_USER_PROFILE_SUCCESSFUL,
       payload: data,
     });
+
   } catch (error) {
     dispatch({
       type: GET_USER_PROFILE_FAILED,

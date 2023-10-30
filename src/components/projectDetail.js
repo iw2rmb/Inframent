@@ -8,7 +8,20 @@ import copy from "clipboard-copy";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import getColorByAlphabet from "./getRandomColor";
-const ProjectDetail = ({ setShowDetails, id }) => {
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  boxShadow: 20,
+};
+
+
+const ProjectDetail = ({ setShowDetails, id, showDetails }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -78,8 +91,26 @@ const ProjectDetail = ({ setShowDetails, id }) => {
     });
   };
 
+  const handleClose = () => {
+    setShowDetails(false)
+  }
   return (
-    <div className="fixed flex items-center justify-center z-10 backdrop-filter top-0 left-0 w-[100%] h-[100%]">
+
+
+    <div >
+
+{/* className="fixed flex items-center justify-center z-10 backdrop-filter top-0 left-0 w-[100%] h-[100%]"> */}
+
+<Modal
+        open={showDetails}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+
+
+<Box sx={style}>
+  
       {loading ? (
         <div>loading</div>
       ) : !data ? (
@@ -157,7 +188,7 @@ const ProjectDetail = ({ setShowDetails, id }) => {
                     />
                   ) : (
                     <p style={{backgroundColor: getColorByAlphabet(picture?.updated_by?.username ? picture?.updated_by?.username.slice(0, 1): 'a')}} className=" h-fit w-fit py-3 px-4 capitalize rounded-full">
-                      {picture?.updated_by?.username.slice(0, 2)}
+                      {picture?.created_by?.username.slice(0, 2)}
                     </p>
                   )}
                   <p className="text-[17px] font-roboto">
@@ -213,10 +244,9 @@ const ProjectDetail = ({ setShowDetails, id }) => {
         </div>
       )}
 
-      <div
-        className="absolute w-[100vw] h-[100vh] top-0 cursor-pointer"
-        onClick={() => setShowDetails(false)}
-      ></div>
+
+</Box>
+  </Modal>
     </div>
   );
 };

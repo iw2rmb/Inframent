@@ -346,7 +346,6 @@ export const createNewSubProject = ({value, projectId, userId}) => async (dispat
 
   const data = sessionStorage.getItem("userInfo");
   const authToken = JSON.parse(data)?.auth_token;
-  console.log(userId)
   try {
     const { data } = await Axios.post(`${BASE_URL}/projects/pop-areas/${projectId}/add`, {
       "name": value,

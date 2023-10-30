@@ -25,14 +25,21 @@ const Layout = ({children}) => {
       else if (
         location.pathname.split('/').length === 2
       ) {
-        const userId = JSON.parse(data)?.user_id;
-        dispatch(getUserDetail(userId))
+        
         navigate("/projects");
 
         return
       }
 
     }, [data]);
+
+    useEffect(() => {
+      if(data) {
+        const userId = JSON.parse(data)?.user_id;
+        dispatch(getUserDetail(userId))
+      }
+      
+    }, [data])
 
   return (
     <>
