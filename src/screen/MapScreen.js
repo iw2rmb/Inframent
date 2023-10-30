@@ -121,7 +121,7 @@ const MapScreen = () => {
       </div>
 
       {showDetails && (
-        <ProjectDetail setShowDetails={setShowDetails} id={selectedId} />
+        <ProjectDetail setShowDetails={setShowDetails} id={selectedId} showDetails={showDetails}/>
       )}
 
     </div>
