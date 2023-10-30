@@ -37,12 +37,8 @@ const DpArea = () => {
 
   const scrollToBottom = () => {
     if (containerRef.current) {
-      console.log('scrollTop before:', containerRef.current.scrollTop);
-      console.log('scrollHeight:', containerRef.current.scrollHeight);
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
-      console.log('scrollTop after:', containerRef.current.scrollTop);
     } else {
-      console.log('none')
     }
   };
 

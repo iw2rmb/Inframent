@@ -45,7 +45,7 @@ export const fetchProjects = () => async (dispatch) => {
   const data = sessionStorage.getItem("userInfo");
   const authToken = JSON.parse(data)?.auth_token;
   try {
-    const { data } = await Axios.get(`${BASE_URL}/projects`, {
+    const { data } = await Axios.get(`${BASE_URL}/projects/city-areas`, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -74,7 +74,7 @@ export const fetchSubProjects = (projectId) => async (dispatch) => {
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.get(`${BASE_URL}/projects/${projectId}`, {
+    const { data } = await Axios.get(`${BASE_URL}/projects/pop-areas/${projectId}`, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -105,7 +105,7 @@ export const fetchDP = (subProjectId) => async (dispatch) => {
 
   try {
     const { data } = await Axios.get(
-      `${BASE_URL}/projects/pop-areas/${subProjectId}`,
+      `${BASE_URL}/projects/dp-areas/${subProjectId}`,
       {
         headers: {
           Accept: "application/json",
@@ -138,7 +138,7 @@ export const fetchDpAreas = (dp_id) => async (dispatch) => {
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.get(`${BASE_URL}/projects/dp-areas/${dp_id}`, {
+    const { data } = await Axios.get(`${BASE_URL}/projects/dp-pictures-list/${dp_id}`, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -169,7 +169,7 @@ export const fetchDpPictures = (id) => async (dispatch) => {
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.get(`${BASE_URL}/projects/dp-pictures/${id}`, {
+    const { data } = await Axios.get(`${BASE_URL}/projects/dp-picture-get/${id}`, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -289,7 +289,7 @@ export const createNewProject = ({userId, value}) => async (dispatch) => {
   const data = sessionStorage.getItem("userInfo");
   const authToken = JSON.parse(data)?.auth_token;
   try {
-    const { data } = await Axios.post(`${BASE_URL}/projects/city/add`, {
+    const { data } = await Axios.post(`${BASE_URL}/projects/city-areas/add`, {
       "name": value,
       "created_by": userId
     }, {
@@ -348,7 +348,7 @@ export const createNewSubProject = ({value, projectId, userId}) => async (dispat
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.post(`${BASE_URL}/projects/${projectId}/add`, {
+    const { data } = await Axios.post(`${BASE_URL}/projects/pop-areas/${projectId}/add`, {
       "name": value,
     }, {
       headers: {
@@ -395,7 +395,7 @@ export const createNewDpArea = ({subProjectId, value, userId}) => async (dispatc
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.post(`${BASE_URL}/projects/pop-areas/${subProjectId}/add`,  {
+    const { data } = await Axios.post(`${BASE_URL}/projects/dp-areas/${subProjectId}/add`,  {
       "name": value,
       "created_by": userId
     },{

@@ -20,7 +20,6 @@ const DpAreas = () => {
 
   const {subProjects} = useSelector((state) => state?.listSubProjects)
 
-  console.log(subProjects)
   useEffect(() => {
     if (areas) {
       dispatch(fetchDpPictures(areas[0]?.id))
@@ -37,7 +36,6 @@ const DpAreas = () => {
     if(deleteDp?.status) {
       dispatch(resetForm())
       dispatch(fetchDpAreas(data));
-      console.log('called')
     }
     
 }, [deleteDp, dispatch]);
@@ -83,7 +81,6 @@ const DpAreas = () => {
  }
 
 
- console.log(areas)
   return (
     <div className="flex flex-col gap-[4%] py-8 px-[20px] h-[100%]">
  <Breadcrumb />

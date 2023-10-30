@@ -22,7 +22,6 @@ const MapScreen = () => {
   const MAPTILER_API_KEY = "CcOATuikfYaYqcmMIpGp";
 
   const dpPicture = useSelector((state) => state?.dpPictures);
-  console.log(dpPicture)
 
   const { dpPictures } = dpPicture;
 
