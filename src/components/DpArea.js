@@ -54,7 +54,7 @@ const DpArea = () => {
         </div>
       ) : dpAreas.length > 0 ? (
         <div className="scroll-smooth overflow-y-scroll h-[85%]" ref={containerRef}>
-                <div className='h-fit overflow-y-scroll' >
+                <div className='h-fit overflow-y-scroll pb-[10rem]' >
           {dpAreas?.map((areas) => (
             <div
               key={areas.id}

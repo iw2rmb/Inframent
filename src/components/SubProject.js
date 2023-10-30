@@ -64,7 +64,7 @@ const scrollToBottom = () => {
       loading ? <div className='flex-1 flex justify-center'>
         <CircularProgress />
       </div>  : proj?.length > 0 ? <div className='scroll-smooth overflow-y-scroll h-[85%]' ref={containerRef}>
-      <div className='h-fit overflow-y-scroll' >
+      <div className='h-fit overflow-y-scroll pb-[10rem]' >
       {
           proj?.map((project) => 
           (
