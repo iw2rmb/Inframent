@@ -102,7 +102,7 @@ const DpAreas = () => {
           <div key={area.id} className="flex flex-col border rounded-xl font-roboto flex-1">
             <div className="flex flex-row bg-gray-200 p-[8px] rounded-xl gap-[5%]">
               <img src={area?.thumbnail_image} alt={area?.dp_image} className={`w-[50%]  h-40 rounded-lg ${area?.thumbnail_image ? '' : 'bg-gray-600'}`}/>
-              <div className="flex flex-row p-1 justify-between w-[50%] border border-black">
+              <div className="flex flex-row flex-wrap p-1 justify-between w-[50%] border border-black">
                 <div className="flex flex-col w-fit">
 
                   <p className="text-[14px] w-20">
