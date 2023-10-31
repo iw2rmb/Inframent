@@ -19,7 +19,17 @@ import {
   FETCH_ALL_DP_PICTURES_FAILED,
   DELETE_DP_AREA,
   DELETE_DP_AREA_SUCCESSFUL,
-  DELETE_DP_AREA_FAILED
+  DELETE_DP_AREA_FAILED,
+  ADD_PROJECT,
+  ADD_PROJECT_SUCCESSFUL,
+  ADD_PROJECT_FAILED,
+  ADD_DP_AREA,
+  ADD_DP_AREA_SUCCESSFUL,
+  ADD_DP_AREA_FAILED,
+  ADD_SUB_PROJECT,
+  ADD_SUB_PROJECT_SUCCESSFUL,
+  ADD_SUB_PROJECT_FAILED,
+  RESET_FORM
 } from "../constant/products";
 
 export const fetchProjectsReducer = (
@@ -175,6 +185,89 @@ export const deleteDpArea = (
     case DELETE_DP_AREA_FAILED:
       return {
         loading: false
+      }
+      case RESET_FORM:
+        return {
+          status: false
+        }
+    default: return state
+  }
+}
+
+
+export const createNewProject = (
+  state = {loading: false, projectData: []}, action
+) => {
+  switch (action.type) {
+    case ADD_PROJECT:
+      return {
+        loading: true
+      };
+    case ADD_PROJECT_SUCCESSFUL:
+      return {
+        loading: false, projectData: action?.payload
+      }
+    case ADD_PROJECT_FAILED:
+      return {
+        loading: false
+      }
+      case RESET_FORM:
+        return {
+          projectData: []
+        }
+    default: return state
+  }
+}
+
+
+
+
+
+export const createNewSubProject = (
+  state = {loading: false, subProjectData: []}, action
+) => {
+  switch (action.type) {
+    case ADD_SUB_PROJECT:
+      return {
+        loading: true
+      };
+    case ADD_SUB_PROJECT_SUCCESSFUL:
+      return {
+        loading: false, subProjectData: action?.payload
+      }
+    case ADD_SUB_PROJECT_FAILED:
+      return {
+        loading: false
+      }
+      case RESET_FORM:
+        return {
+          subProjectData: [],
+        }
+    default: return state
+  }
+}
+
+
+
+export const createNewDpArea = (
+  state = {loading: false, dpAreaData: []}, action
+) => {
+  switch (action.type) {
+    case ADD_DP_AREA:
+      return {
+        loading: true
+      };
+    case ADD_DP_AREA_SUCCESSFUL:
+      return {
+        loading: false, dpAreaData: action?.payload
+      }
+    case ADD_DP_AREA_FAILED:
+      return {
+        loading: false
+      }
+    case RESET_FORM:
+      return {
+        dpAreaData: [],
       }
     default: return state
   }

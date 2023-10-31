@@ -3,20 +3,36 @@ import { MdOutlineContentCopy } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteDpArea } from "../action/projects";
+import { deleteDpArea, fetchDpAreas, resetForm } from "../action/projects";
 import copy from "clipboard-copy";
 import { toast } from "react-toastify";
-const ProjectDetail = ({ setShowDetails, id }) => {
+import { useLocation, useNavigate } from "react-router-dom";
+import getColorByAlphabet from "./getRandomColor";
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  boxShadow: 20,
+};
+
+
+const ProjectDetail = ({ setShowDetails, id, showDetails }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const { loading, picture } = useSelector((state) => state?.dpPicture);
-
+  const deleteDp = useSelector((state) => state?.deleteDpArea);
+  const dpId = location?.pathname?.split("/")[4];
   useEffect(() => {
-
-      setData("");
-      setData(picture);
-  
+    setData("");
+    setData(picture);
   }, [picture]);
 
   function getWholeAndDecimal(decimalNumber) {
@@ -56,14 +72,14 @@ const ProjectDetail = ({ setShowDetails, id }) => {
 
   const handleDelete = () => {
     dispatch(deleteDpArea(id, data?.dp_area?.name, data?.dp_note, data?.depth));
-    setShowDetails(false)
-    setShowModal(false)
+    setShowDetails(false);
+    setShowModal(false);
   };
 
   const handleCopy = (lat, lng) => {
     copy(`${lat}, ${lng}`);
 
-    toast.info('Coordinates copied to clipboard', {
+    toast.info("Coordinates copied to clipboard", {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -72,12 +88,29 @@ const ProjectDetail = ({ setShowDetails, id }) => {
       draggable: true,
       progress: undefined,
       theme: "light",
-      });
+    });
   };
 
-
+  const handleClose = () => {
+    setShowDetails(false)
+  }
   return (
-    <div className="fixed flex items-center justify-center z-10 backdrop-filter top-0 left-0 w-[100%] h-[100%]">
+
+
+    <div >
+
+{/* className="fixed flex items-center justify-center z-10 backdrop-filter top-0 left-0 w-[100%] h-[100%]"> */}
+
+<Modal
+        open={showDetails}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+
+
+<Box sx={style}>
+  
       {loading ? (
         <div>loading</div>
       ) : !data ? (
@@ -89,19 +122,19 @@ const ProjectDetail = ({ setShowDetails, id }) => {
             <img
               src={data?.dp_image ? data?.dp_image : data?.thumbnail_image}
               alt={data?.dp_image}
-              className="w-[100%] h-[90%] rounded-md"
+              className="w-auto h-[90%] rounded-md"
             />
           </div>
 
-          <div className="flex flex-col justify- h-[100%] w-[40%] relative">
-            <div className="mb-8 w-[100%] flex justify-end h-fit">
+          <div className="flex flex-col justify-between h-[100%] w-[30%] relative">
+            <div className="mb-8 w-[100%] flex justify-end h-[10%]">
               <AiOutlineClose
                 className="text-xl text-blue-600 cursor-pointer"
                 onClick={() => setShowDetails(false)}
               />
             </div>
-            <div className="p-4 ">
-              <div className="overflow-scroll scroll-smooth h-[85.5%]">
+            <div className="h-[90%] flex flex-col justify-between">
+              <div className="overflow-scroll scroll-smooth h-[92.5%]">
                 <p className="text-[16px] font-semibold">Location</p>
                 <div className="flex flex-row justify-between mt-1.5">
                   <div className="flex flex-row gap-2">
@@ -114,14 +147,12 @@ const ProjectDetail = ({ setShowDetails, id }) => {
                   </div>
 
                   {/* <div> */}
-                    <MdOutlineContentCopy
+                  <MdOutlineContentCopy
                     className="text-blue-700 text-xl cursor-pointer"
                     onClick={() =>
                       handleCopy(picture?.latitude, picture?.longitude)
                     }
                   />
-
-                  
                 </div>
                 <h1 className="text-[16px] font-semibold mt-3">Note</h1>
                 <p className="mt-1.5 text-[15px] w-[75%]">
@@ -156,8 +187,8 @@ const ProjectDetail = ({ setShowDetails, id }) => {
                       className="w-10 h-10 rounded-full"
                     />
                   ) : (
-                    <p className="bg-yellow-600 h-fit w-fit py-3 px-4 capitalize rounded-full">
-                      {picture?.updated_by?.username.slice(0, 2)}
+                    <p style={{backgroundColor: getColorByAlphabet(picture?.updated_by?.username ? picture?.updated_by?.username.slice(0, 1): 'a')}} className=" h-fit w-fit py-3 px-4 capitalize rounded-full">
+                      {picture?.created_by?.username.slice(0, 2)}
                     </p>
                   )}
                   <p className="text-[17px] font-roboto">
@@ -173,7 +204,7 @@ const ProjectDetail = ({ setShowDetails, id }) => {
                 <h1 className="text-[16px] font-semibold mt-3">Device</h1>
                 <p className="text-[15px]">{data?.device_model}</p>
               </div>
-              <div className="mt-4 cursor-pointer flex flex-row justify-end font-semibold  text-red-500">
+              <div className="cursor-pointer flex flex-row justify-end font-semibold  text-red-500">
                 <div
                   className="flex flex-row items-center gap-3"
                   onClick={() => setShowModal(true)}
@@ -213,10 +244,9 @@ const ProjectDetail = ({ setShowDetails, id }) => {
         </div>
       )}
 
-      <div
-        className="absolute w-[100vw] h-[100vh] top-0 cursor-pointer"
-        onClick={() => setShowDetails(false)}
-      ></div>
+
+</Box>
+  </Modal>
     </div>
   );
 };

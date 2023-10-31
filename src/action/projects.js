@@ -20,7 +20,17 @@ import {
   FETCH_ALL_DP_PICTURES_FAILED,
   DELETE_DP_AREA,
   DELETE_DP_AREA_SUCCESSFUL,
-  DELETE_DP_AREA_FAILED
+  DELETE_DP_AREA_FAILED,
+  ADD_PROJECT,
+  ADD_PROJECT_SUCCESSFUL,
+  ADD_PROJECT_FAILED,
+  ADD_DP_AREA,
+  ADD_DP_AREA_SUCCESSFUL,
+  ADD_DP_AREA_FAILED,
+  ADD_SUB_PROJECT,
+  ADD_SUB_PROJECT_SUCCESSFUL,
+  ADD_SUB_PROJECT_FAILED,
+  RESET_FORM
 } from "../constant/products";
 import { toast } from "react-toastify";
 
@@ -35,7 +45,7 @@ export const fetchProjects = () => async (dispatch) => {
   const data = sessionStorage.getItem("userInfo");
   const authToken = JSON.parse(data)?.auth_token;
   try {
-    const { data } = await Axios.get(`${BASE_URL}/projects`, {
+    const { data } = await Axios.get(`${BASE_URL}/projects/city-areas`, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -56,7 +66,6 @@ export const fetchProjects = () => async (dispatch) => {
     });
   }
 };
-
 export const fetchSubProjects = (projectId) => async (dispatch) => {
   dispatch({
     type: FETCH_SUB_PROJECT,
@@ -65,7 +74,7 @@ export const fetchSubProjects = (projectId) => async (dispatch) => {
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.get(`${BASE_URL}/projects/${projectId}`, {
+    const { data } = await Axios.get(`${BASE_URL}/projects/pop-areas/${projectId}`, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -96,7 +105,7 @@ export const fetchDP = (subProjectId) => async (dispatch) => {
 
   try {
     const { data } = await Axios.get(
-      `${BASE_URL}/projects/pop-areas/${subProjectId}`,
+      `${BASE_URL}/projects/dp-areas/${subProjectId}`,
       {
         headers: {
           Accept: "application/json",
@@ -129,7 +138,7 @@ export const fetchDpAreas = (dp_id) => async (dispatch) => {
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.get(`${BASE_URL}/projects/dp-areas/${dp_id}`, {
+    const { data } = await Axios.get(`${BASE_URL}/projects/dp-pictures-list/${dp_id}`, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -160,7 +169,7 @@ export const fetchDpPictures = (id) => async (dispatch) => {
   const authToken = JSON.parse(data)?.auth_token;
 
   try {
-    const { data } = await Axios.get(`${BASE_URL}/projects/dp-pictures/${id}`, {
+    const { data } = await Axios.get(`${BASE_URL}/projects/dp-picture-get/${id}`, {
       headers: {
         Accept: "application/json",
         Authorization: `Token ${authToken}`,
@@ -265,3 +274,167 @@ export const deleteDpArea = (id, categoryName, dpNote, depth) => async (dispatch
     });
   }
 };
+
+
+
+
+
+
+
+export const createNewProject = ({userId, value}) => async (dispatch) => {
+  dispatch({
+    type: ADD_PROJECT,
+  });
+
+  const data = sessionStorage.getItem("userInfo");
+  const authToken = JSON.parse(data)?.auth_token;
+  try {
+    const { data } = await Axios.post(`${BASE_URL}/projects/city-areas/add`, {
+      "name": value,
+      "created_by": userId
+    }, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    dispatch({
+      type: ADD_PROJECT_SUCCESSFUL,
+      payload: data,
+    });
+    toast.success('Project created successfully', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
+  } catch (error) {
+    dispatch({
+      type: ADD_PROJECT_FAILED,
+      payload:
+        error.response && error.response.data[0]
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const createNewSubProject = ({value, projectId, userId}) => async (dispatch) => {
+  dispatch({
+    type: ADD_SUB_PROJECT,
+  });
+
+  const data = sessionStorage.getItem("userInfo");
+  const authToken = JSON.parse(data)?.auth_token;
+  try {
+    const { data } = await Axios.post(`${BASE_URL}/projects/pop-areas/${projectId}/add`, {
+      "name": value,
+      "created_by": userId
+    }, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    dispatch({
+      type: ADD_SUB_PROJECT_SUCCESSFUL,
+      payload: data,
+    });
+    toast.success('Sub-project created successfully', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
+  } catch (error) {
+    dispatch({
+      type: ADD_SUB_PROJECT_FAILED,
+      payload:
+        error.response && error.response.data[0]
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+
+
+export const createNewDpArea = ({subProjectId, value, userId}) => async (dispatch) => {
+  dispatch({
+    type: ADD_DP_AREA,
+  });
+
+  const data = sessionStorage.getItem("userInfo");
+  const authToken = JSON.parse(data)?.auth_token;
+
+  try {
+    const { data } = await Axios.post(`${BASE_URL}/projects/dp-areas/${subProjectId}/add`,  {
+      "name": value,
+      "created_by": userId
+    },{
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    dispatch({
+      type: ADD_DP_AREA_SUCCESSFUL,
+      payload: data,
+    });
+
+    toast.success('DP area created successfully', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
+  } catch (error) {
+    dispatch({
+      type: ADD_DP_AREA_FAILED,
+      payload:
+        error.response && error.response.data[0]
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+export const resetForm = () => async (dispatch) => {
+  dispatch({
+    type: RESET_FORM
+  })
+}
