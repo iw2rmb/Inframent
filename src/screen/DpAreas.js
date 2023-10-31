@@ -105,7 +105,7 @@ const DpAreas = () => {
               <div className="flex flex-row flex-1 p-1 justify-between">
                 <div className="flex flex-col w-fit">
 
-                  <p className="text-[15px] w-24">
+                  <p className="text-[14px] w-20">
                     { area?.created_at_utc? formatDateTime(area?.created_at_utc) : ''}
                   </p>
                   
