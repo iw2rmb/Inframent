@@ -88,9 +88,6 @@ const DpAreas = () => {
 }
 
 
-console.log(areas)
-
-
   return (
     <div className="flex flex-col gap-[4%] py-8 px-[20px] h-[100%]">
  <Breadcrumb />

@@ -22,7 +22,6 @@ const DpAreaCard = ({ project, handleNavigate }) => {
 
   const handleDelete = () => {
       dispatch(deleteDpAreas(project?.id))
-    console.log(project?.id); 
     setShowDeleteModal(false)
   };
 
@@ -31,23 +30,16 @@ const DpAreaCard = ({ project, handleNavigate }) => {
   }, [location]);
 
   const deleteDpArea = useSelector((state) => state?.deleteDpAreas)
-console.log(deleteDpArea)
 
   useEffect(() => {
     if(deleteDpArea?.deleteDpAreas?.detail) {
       
-      // navigate(`/projects/${project.project_id}`)
       dispatch(fetchDP(selectedSubProjectId))
       dispatch(resetForm())
-      console.log('reset delete project')
       setShowMenu(false)
       setShowOptions(false)
     }
   }, [deleteDpArea])
-
-//   const handleNavigate = (id) => {
-//     navigate(`${location.pathname}/${id}`);
-//   };
 
 
   return (
@@ -71,10 +63,12 @@ console.log(deleteDpArea)
 
 <div>
     {showMenu && (
+      <div className="p-2">
           <BsThreeDotsVertical
             className="text-xl"
             onClick={() => setShowOptions(true)}
           />
+          </div>
         )}
       {showOptions && (
         <div

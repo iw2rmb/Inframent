@@ -22,7 +22,6 @@ const Projects = () => {
   const {loading, projects} = useSelector((state) => state?.listProjects);
   const addNewProject = useSelector((state) => state?.addProject)
 
-  console.log(projects)
   
   useEffect(() => {
 if (projects) {
@@ -39,9 +38,6 @@ if (projects) {
     
   }, [dispatch, data])
 
-  // useEffect(() => {
-  //     setSelectedProject(location?.pathname.split('/')[2])
-  // }, [location])
 
   const containerRef = useRef(null);
 
@@ -55,15 +51,7 @@ if (projects) {
 
 
   const projectDelete = useSelector((state) => state?.deleteProject)
-  console.log(projectDelete?.deleteProject?.detail)
 
-  // useEffect(() => {
-  //   if(projectDelete?.deleteProject) {
-  //     dispatch(fetchProjects())
-  //     dispatch(resetForm())
-  //     console.log('reset delete project')
-  //   }
-  // }, [deleteProject])
   
 
 

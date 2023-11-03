@@ -474,7 +474,6 @@ export const deleteProject = (project_id) => async (dispatch) => {
       type: DELETE_PROJECT_SUCCESSFUL,
       payload: data,
     });
-    console.log(data)
 
     toast.success('Project successfully deleted', {
       position: "bottom-right",
@@ -528,7 +527,6 @@ export const deleteSubProject = (project_id) => async (dispatch) => {
       type: DELETE_SUB_PROJECT_SUCCESSFUL,
       payload: data,
     });
-    console.log(data)
 
     toast.success('Sub-project successfully deleted', {
       position: "bottom-right",
@@ -566,14 +564,11 @@ export const deleteDpAreas = (project_id) => async (dispatch) => {
     type: DELETE_DP_AREAS,
   });
 
-  console.log(project_id)
-
 
 
   const data = sessionStorage.getItem("userInfo");
   const authToken = JSON.parse(data)?.auth_token;
 
-  console.log(authToken)
   try {
     const { data } = await Axios.patch(`${BASE_URL}/projects/dp-areas/${project_id}/soft-delete`, {}, {
       headers: {
@@ -586,8 +581,6 @@ export const deleteDpAreas = (project_id) => async (dispatch) => {
       type: DELETE_DP_AREAS_SUCCESSFUL,
       payload: data,
     });
-
-    console.log(data)
 
     toast.success('DP area successfully deleted', {
       position: "bottom-right",
@@ -608,6 +601,5 @@ export const deleteDpAreas = (project_id) => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
-    console.log(error)
   }
 };

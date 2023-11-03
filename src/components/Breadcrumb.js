@@ -30,7 +30,6 @@ const Breadcrumb = () => {
     .filter((path) => path !== '')
     .slice(1);
 
-    console.log(links)
 
   return (
     <div className=''>
@@ -49,7 +48,7 @@ const Breadcrumb = () => {
             {links[index]} 
           </p> : 
 
-           <Skeleton variant="text" sx={{ fontSize: '1rem' }} /> 
+           <Skeleton variant="text" width={60} height={30} sx={{ fontSize: '1rem' }} /> 
           }
 
           {index < paths.length - 1 && (

@@ -21,7 +21,6 @@ const SubProject = ({setSelectedSubProject, selectedProject}) => {
   const addNewDpArea = useSelector((state) => state?.addNewDpArea)
   const [showModal, setShowModal] = useState(false)
 
-  console.log(subProjects)
 
 const handleNavigate = (id) => {
   navigate(`/projects/${selectedProjectId}/${id}`)

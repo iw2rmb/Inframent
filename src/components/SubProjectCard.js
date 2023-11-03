@@ -24,17 +24,13 @@ const SubProjectCard = ({ project, handleNavigate }) => {
   const handleDelete = () => {
       dispatch(deleteSubProject(project?.id))
       setShowDeleteModal(false)
-    console.log(project?.id);
   };
 
   useEffect(() => {
     setSelectedSubProjectId(location?.pathname.split("/")[3]);
   }, [location]);
-// console.log(selectedSubProjectId)
-console.log(project)
 
 const subProjectDelete = useSelector((state) => state?.deleteSubProject)
-console.log(subProjectDelete)
 const selectedProjectId = location?.pathname.split('/')[2]
 
 useEffect(() => {
@@ -43,10 +39,8 @@ useEffect(() => {
     navigate(`/projects/${selectedProjectId}`)
     dispatch(fetchSubProjects(selectedProjectId))
     dispatch(resetForm())
-    console.log('reset delete project')
     setShowMenu(false)
     setShowOptions(false)
-    console.log(selectedProjectId)
   }
 }, [subProjectDelete])
 useEffect(() => {

@@ -16,7 +16,6 @@ const DpArea = () => {
 
   const selectedSubProjectId = location?.pathname.split("/")[3];
   const { loading, dpAreas } = useSelector((state) => state?.listPopAreas);
-  console.log(dpAreas)
 
 
 
