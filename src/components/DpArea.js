@@ -6,6 +6,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useLocation, useNavigate } from "react-router-dom";
 import {AiOutlineFolderAdd} from 'react-icons/ai'
 import BasicModal from './Modal';
+import DpAreaCard from "./DpAreaCard";
 const DpArea = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -15,6 +16,7 @@ const DpArea = () => {
 
   const selectedSubProjectId = location?.pathname.split("/")[3];
   const { loading, dpAreas } = useSelector((state) => state?.listPopAreas);
+  console.log(dpAreas)
 
 
 
@@ -55,17 +57,19 @@ const DpArea = () => {
       ) : dpAreas.length > 0 ? (
         <div className="scroll-smooth overflow-y-scroll h-[85%]" ref={containerRef}>
                 <div className='h-fit overflow-y-scroll pb-[10rem]' >
-          {dpAreas?.map((areas) => (
-            <div
-              key={areas.id}
-              onClick={() => handleNavigate(areas?.id)}
-              className={`flex flex-row w-[100%] cursor-pointer border border-b-gray-400 border-white px-3 justify-between py-5
+          {dpAreas?.map((project) => (
+            // <div
+            //   key={areas.id}
+            //   onClick={() => handleNavigate(areas?.id)}
+            //   className={`flex flex-row w-[100%] cursor-pointer border border-b-gray-400 border-white px-3 justify-between py-5
              
-              `}
-            >
-              <h1 className="text-xl w-[90%]">{areas.name}</h1>
-              <IoMdArrowDropright className="text-2xl" />
-            </div>
+            //   `}
+            // >
+            //   <h1 className="text-xl w-[90%]">{areas.name}</h1>
+            //   <IoMdArrowDropright className="text-2xl" />
+            // </div>
+
+            <DpAreaCard project={project} handleNavigate={handleNavigate}/>
           ))}
           </div>
         </div>

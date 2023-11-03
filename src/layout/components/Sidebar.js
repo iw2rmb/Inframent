@@ -78,9 +78,12 @@ const Sidebar = ({setToggleOpen}) => {
       </div>
       <div className='flex flex-col gap-4 items-center justify-center'>
         <div className='flex flex-row'>
-            <h1 style={{ backgroundColor: getColorByAlphabet(userDetail?.details?.username ? userDetail?.details?.username[0] : 'a') }} className="px-5 py-3 font-bold rounded-full cursor-pointer" onClick={() => setShowOptions(!showOptions)}>
-  {userDetail?.details?.username ? userDetail?.details?.username[0] : ''}
+          <div style={{ backgroundColor: getColorByAlphabet(userDetail?.details?.username ? userDetail?.details?.username[0] : '#D9E2FF') }} className='rounded-full overflow-hidden w-[3.25rem] h-[3.25rem] flex items-center justify-center'>
+             <h1 className=" rounded-full text-n font-roboto cursor-pointer uppercase" onClick={() => setShowOptions(!showOptions)}>
+  {userDetail?.details?.username ? userDetail?.details?.username.slice(0, 2) : ''}
 </h1>
+          </div>
+           
             {
               showOptions && <Link to="/login" className='fixed mt-2 flex flex-row items-center gap-2 p-2 text-red-500 border bg-gray-200 drop-shadow-xl w-fit ml-[4rem]' onClick={handleLogOut}>
                 <FiLogOut className='text-[22px]' />

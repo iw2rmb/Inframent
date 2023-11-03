@@ -88,6 +88,9 @@ const DpAreas = () => {
 }
 
 
+console.log(areas)
+
+
   return (
     <div className="flex flex-col gap-[4%] py-8 px-[20px] h-[100%]">
  <Breadcrumb />
@@ -113,7 +116,7 @@ const DpAreas = () => {
                   
                   
                   <p className="text-[15px] mt-1.5 border bg-gray-100 px-4 rounded-md py-2 w-fit shadow-md">
-                  Inspect
+                  {area?.dp_category?.name}
                 </p>
                 </div>
                 {

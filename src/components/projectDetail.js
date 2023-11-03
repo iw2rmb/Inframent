@@ -122,7 +122,7 @@ const ProjectDetail = ({ setShowDetails, id, showDetails }) => {
             <img
               src={data?.dp_image ? data?.dp_image : data?.thumbnail_image}
               alt={data?.dp_image}
-              className="w-auto h-[90%] rounded-md"
+              className="w-auto h-auto rounded-md"
             />
           </div>
 
@@ -187,7 +187,7 @@ const ProjectDetail = ({ setShowDetails, id, showDetails }) => {
                       className="w-10 h-10 rounded-full"
                     />
                   ) : (
-                    <p style={{backgroundColor: getColorByAlphabet(picture?.updated_by?.username ? picture?.updated_by?.username.slice(0, 1): 'a')}} className=" h-fit w-fit py-3 px-4 capitalize rounded-full">
+                    <p style={{backgroundColor: getColorByAlphabet(picture?.updated_by?.username ? picture?.updated_by?.username.slice(0, 1): 'a')}} className=" h-fit uppercase w-fit py-3 px-4 rounded-full">
                       {picture?.created_by?.username.slice(0, 2)}
                     </p>
                   )}

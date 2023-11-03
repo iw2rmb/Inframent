@@ -2,7 +2,7 @@ import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 
 import { signinReducer, getUserDetails } from "./reducer/userReducer";
-import { fetchProjectsReducer, fetchSubProjectsReducer, fetchPopArea, fetchDpAreas, fetchDpPictures, fetchAllDpPictures, deleteDpArea, createNewProject, createNewSubProject, createNewDpArea } from "./reducer/projects";
+import { fetchProjectsReducer, fetchSubProjectsReducer, fetchPopArea, fetchDpAreas, fetchDpPictures, fetchAllDpPictures, deleteDpArea, createNewProject, createNewSubProject, createNewDpArea, deleteDpAreas, deleteProject, deleteSubProject } from "./reducer/projects";
 const rootReducer = combineReducers({
   userSignin: signinReducer,
   listProjects: fetchProjectsReducer,
@@ -15,7 +15,10 @@ const rootReducer = combineReducers({
   addProject: createNewProject,
   addNewSubProject: createNewSubProject,
   addNewDpArea: createNewDpArea,
-  userDetail: getUserDetails
+  userDetail: getUserDetails,
+  deleteDpAreas: deleteDpAreas,
+  deleteProject: deleteProject,
+  deleteSubProject: deleteSubProject
 
 });
 

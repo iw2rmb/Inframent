@@ -42,7 +42,7 @@ const MapScreen = () => {
   }, [showDetails]);
 
   const getMapStyleURL = () => {
-    if (!isSatelliteView) {
+    if (isSatelliteView) {
       return `https://api.maptiler.com/maps/satellite/style.json?key=CcOATuikfYaYqcmMIpGp`;
     }
     return `https://api.maptiler.com/maps/2bc77a95-9f4a-4b6d-ad3a-d6ce6fb43b2f/style.json?key=CcOATuikfYaYqcmMIpGp`;
@@ -105,12 +105,13 @@ const MapScreen = () => {
       <div className="absolute bottom-[3rem] right-[1.5rem] bg-white flex flex-col items-center justify-evenly w-[3rem] rounded-3xl h-[6.5rem]  gap-4">
         <div
           className="border p-1 rounded-full bg-slate-200"
-          onClick={() => setIsSatelliteView(false)}>
+          // onClick={() => setIsSatelliteView(false)}
+          >
           <BiCurrentLocation className="text-[24px]" />
         </div>
         <div
           className="border p-1 rounded-full bg-slate-200"
-          onClick={() => setIsSatelliteView(true)}
+          onClick={() => setIsSatelliteView(!isSatelliteView)}
         >
           <img
             src="/assets/Vector.svg"
