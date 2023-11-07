@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux/';
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
 const Breadcrumb = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,6 +30,7 @@ const Breadcrumb = () => {
     .filter((path) => path !== '')
     .slice(1);
 
+
   return (
     <div className=''>
       {
@@ -36,12 +39,18 @@ const Breadcrumb = () => {
       
       {paths.map((path, index) => (
         <div key={index} className='flex cursor-pointer flex-row items-center gap-2'>
+
+{links[index] != 'undefined' ? 
           <p
             className='font-mono'
             onClick={() => navigate(`/projects/${paths.slice(0, index + 1).join('/')}`)}
           >
-            {path}
-          </p>
+            {links[index]} 
+          </p> : 
+
+           <Skeleton variant="text" width={60} height={30} sx={{ fontSize: '1rem' }} /> 
+          }
+
           {index < paths.length - 1 && (
             <IoIosArrowForward className='text-blue-600 text-[20px]' />
           )}

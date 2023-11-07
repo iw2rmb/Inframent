@@ -29,7 +29,16 @@ import {
   ADD_SUB_PROJECT,
   ADD_SUB_PROJECT_SUCCESSFUL,
   ADD_SUB_PROJECT_FAILED,
-  RESET_FORM
+  RESET_FORM,
+  DELETE_PROJECT,
+  DELETE_PROJECT_SUCCESSFUL,
+  DELETE_PROJECT_FAILED,
+  DELETE_SUB_PROJECT,
+  DELETE_SUB_PROJECT_SUCCESSFUL,
+  DELETE_SUB_PROJECT_FAILED,
+  DELETE_DP_AREAS,
+  DELETE_DP_AREAS_SUCCESSFUL,
+  DELETE_DP_AREAS_FAILED
 } from "../constant/products";
 
 export const fetchProjectsReducer = (
@@ -268,6 +277,85 @@ export const createNewDpArea = (
     case RESET_FORM:
       return {
         dpAreaData: [],
+      }
+    default: return state
+  }
+}
+
+
+
+export const deleteProject = (
+  state = {loading: false, deleteProject: []}, action
+) => {
+  switch (action.type) {
+    case DELETE_PROJECT:
+      return {
+        loading: true
+      };
+    case DELETE_PROJECT_SUCCESSFUL:
+      return {
+        loading: false, deleteProject: action?.payload
+      }
+    case DELETE_PROJECT_FAILED:
+      return {
+        loading: false
+      }
+    case RESET_FORM:
+      return {
+        deleteProject: [],
+      }
+    default: return state
+  }
+}
+
+
+
+export const deleteSubProject = (
+  state = {loading: false, deleteSubProject: []}, action
+) => {
+  switch (action.type) {
+    case DELETE_SUB_PROJECT:
+      return {
+        loading: true
+      };
+    case DELETE_SUB_PROJECT_SUCCESSFUL:
+      return {
+        loading: false, deleteSubProject: action?.payload
+      }
+    case DELETE_SUB_PROJECT_FAILED:
+      return {
+        loading: false
+      }
+    case RESET_FORM:
+      return {
+        deleteProject: [],
+      }
+    default: return state
+  }
+}
+
+
+
+
+export const deleteDpAreas = (
+  state = {loading: false, deleteDpAreas: []}, action
+) => {
+  switch (action.type) {
+    case DELETE_DP_AREAS:
+      return {
+        loading: true
+      };
+    case DELETE_DP_AREAS_SUCCESSFUL:
+      return {
+        loading: false, deleteDpAreas: action?.payload
+      }
+    case DELETE_DP_AREAS_FAILED:
+      return {
+        loading: false
+      }
+    case RESET_FORM:
+      return {
+        deleteProject: [],
       }
     default: return state
   }

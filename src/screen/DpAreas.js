@@ -113,7 +113,7 @@ const DpAreas = () => {
                   
                   
                   <p className="text-[15px] mt-1.5 border bg-gray-100 px-4 rounded-md py-2 w-fit shadow-md">
-                  Inspect
+                  {area?.dp_category?.name}
                 </p>
                 </div>
                 {

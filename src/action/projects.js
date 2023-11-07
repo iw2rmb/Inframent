@@ -30,7 +30,16 @@ import {
   ADD_SUB_PROJECT,
   ADD_SUB_PROJECT_SUCCESSFUL,
   ADD_SUB_PROJECT_FAILED,
-  RESET_FORM
+  RESET_FORM,
+  DELETE_PROJECT,
+  DELETE_PROJECT_FAILED,
+  DELETE_PROJECT_SUCCESSFUL,
+  DELETE_SUB_PROJECT,
+  DELETE_SUB_PROJECT_FAILED,
+  DELETE_SUB_PROJECT_SUCCESSFUL,
+  DELETE_DP_AREAS,
+  DELETE_DP_AREAS_FAILED,
+  DELETE_DP_AREAS_SUCCESSFUL
 } from "../constant/products";
 import { toast } from "react-toastify";
 
@@ -438,3 +447,159 @@ export const resetForm = () => async (dispatch) => {
     type: RESET_FORM
   })
 }
+
+
+
+
+export const deleteProject = (project_id) => async (dispatch) => {
+  dispatch({
+    type: DELETE_PROJECT,
+  });
+
+
+
+  const data = sessionStorage.getItem("userInfo");
+  const authToken = JSON.parse(data)?.auth_token;
+  try {
+    const { data } = await Axios.patch(`${BASE_URL}/projects/city-areas/${project_id}/soft-delete`, {
+      // "name": "name"
+    }, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    dispatch({
+      type: DELETE_PROJECT_SUCCESSFUL,
+      payload: data,
+    });
+
+    toast.success('Project successfully deleted', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
+  } catch (error) {
+    dispatch({
+      type: DELETE_PROJECT_FAILED,
+      payload:
+        error.response && error.response.data[0]
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+export const deleteSubProject = (project_id) => async (dispatch) => {
+  dispatch({
+    type: DELETE_SUB_PROJECT,
+  });
+
+
+
+  const data = sessionStorage.getItem("userInfo");
+  const authToken = JSON.parse(data)?.auth_token;
+  try {
+    const { data } = await Axios.patch(`${BASE_URL}/projects/pop-areas/${project_id}/soft-delete`, {},  {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    dispatch({
+      type: DELETE_SUB_PROJECT_SUCCESSFUL,
+      payload: data,
+    });
+
+    toast.success('Sub-project successfully deleted', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
+  } catch (error) {
+    dispatch({
+      type: DELETE_SUB_PROJECT_FAILED,
+      payload:
+        error.response && error.response.data[0]
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+export const deleteDpAreas = (project_id) => async (dispatch) => {
+  dispatch({
+    type: DELETE_DP_AREAS,
+  });
+
+
+
+  const data = sessionStorage.getItem("userInfo");
+  const authToken = JSON.parse(data)?.auth_token;
+
+  try {
+    const { data } = await Axios.patch(`${BASE_URL}/projects/dp-areas/${project_id}/soft-delete`, {}, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${authToken}`,
+      },
+    });
+
+    dispatch({
+      type: DELETE_DP_AREAS_SUCCESSFUL,
+      payload: data,
+    });
+
+    toast.success('DP area successfully deleted', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+
+  } catch (error) {
+    dispatch({
+      type: DELETE_DP_AREAS_FAILED,
+      payload:
+        error.response && error.response.data[0]
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

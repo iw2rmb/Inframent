@@ -6,6 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import {useLocation, Link, useNavigate} from 'react-router-dom';
 import {AiOutlineFolderAdd} from 'react-icons/ai'
 import BasicModal from './Modal';
+import SubProjectCard from './SubProjectCard';
 const SubProject = ({setSelectedSubProject, selectedProject}) => {
   const dispatch = useDispatch();
   const location = useLocation()
@@ -19,6 +20,7 @@ const SubProject = ({setSelectedSubProject, selectedProject}) => {
   const addNewSubProject = useSelector((state) => state?.addNewSubProject)
   const addNewDpArea = useSelector((state) => state?.addNewDpArea)
   const [showModal, setShowModal] = useState(false)
+
 
 const handleNavigate = (id) => {
   navigate(`/projects/${selectedProjectId}/${id}`)
@@ -68,10 +70,7 @@ const scrollToBottom = () => {
       {
           proj?.map((project) => 
           (
-            <div onClick={() => handleNavigate(project?.id)} key={project.id}  className={`flex flex-row w-[100%] cursor-pointer border border-b-gray-400  px-3 justify-between py-5 ${selectedSubProjectId === `${project?.id}` ? 'bg-indigo-200 border-indigo-200' : 'border-white'}`}>
-                  <h1 className='text-xl font-roboto'>{project.name}</h1>
-                  <IoMdArrowDropright className='text-2xl' />
-              </div>
+           <SubProjectCard project={project} handleNavigate={handleNavigate}/>
               
           )
           )
